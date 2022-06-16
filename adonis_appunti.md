@@ -9,6 +9,31 @@
 - eseguire il comando per avviare il server 
     ->  **node ace serve --watch**
 
+# gestione dei file
+
+- eseguire per l'inizializzazione del webpack js e i file css
+    -> **node ace configure encore**
+- quest'ultima creerà la cartella resources/js e in teoria anche css
+- per abilitare scss installare sass 
+    -> **npm i -D sass-loader sass**
+- e nel file webpack.js abilitare
+    -> Encore.enableSassLoader()
+- !!!ATTENZIONE!!! se non dovesse funzionare:
+    + in resources/js/app.js
+    ->
+    import $ from 'jquery'
+    import * as bootstrap from 'bootstrap'window.$ = $
+    window.bootstrap = bootstrap
+    import '../css/app.scss'
+    + in app.css
+    ->
+    @import 'variables';
+    @import '../../node_modules/bootstrap/scss/bootstrap'
+    + infine eseguire **npm i -D bootstrap jquery**
+
+
+- più info qui:    https://docs.adonisjs.com/guides/assets-manager#compiling-frontend-assets
+
 # database 
 
 - per connettersi al db installare il pacchetto 
@@ -106,3 +131,23 @@ N.B: qui tutti i tipi di dato -> https://docs.adonisjs.com/reference/database/ta
 
 
 
+# controller 
+
+- hanno funzione di smistamento
+- per creare un controller eseguire
+    -> **node ace make:controller UserController**
+
+# servicies
+
+- i servicies sono responsabili della logica che solitamente è presente su un controller per centralizzarne l'esecuzione
+# repository
+- i repository invece sono responsabili della connessione con db o api
+
+# template engine edge
+
+- per rendere disponibile i dati su edge basta che al controller come secondo parametro si passi il dato tra parentesi graffe { movies }
+- per inniettare dati nella pagina invece dopie graffe {{movie.title}}
+- per quanto riguarda le logiche invece si usa la @
+    ->@if (movies.legth)
+    //contenuto
+    @endif

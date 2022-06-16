@@ -1,0 +1,27 @@
+
+@import 'variables';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+
+// header
+header{
+    background-color: $black-color;
+    #navbar{
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left a,.right a{
+            text-decoration: none;
+            color: $light-color;
+            padding: 0 1rem;
+            &:hover{
+                color: $brand-color;
+            }
+        }
+        .center .logo{
+            color: $brand-color;
+            font-weight: 900;
+        }
+    }
+}

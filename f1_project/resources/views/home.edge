@@ -1,0 +1,14 @@
+@include('partials/head')
+@include('partials/nav')
+<main>
+    @each(movie in PMovies)
+      <h3>{{movie.title}}</h3>
+      <h5>{{movie.overview}}</h5>
+      <img src="{{movie.backdrop}}" alt="">
+    @end
+</main>
+
+@include('partials/end')
+
+
+
