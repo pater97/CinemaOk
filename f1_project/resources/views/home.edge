@@ -1,13 +1,87 @@
 @include('partials/head')
 @include('partials/nav')
-<main>
-    @each(movie in PMovies)
-      <h3>{{movie.title}}</h3>
-      <h5>{{movie.overview}}</h5>
-      <img src="{{movie.backdrop}}" alt="">
-    @end
+<main id="homepage">
+    {{--  welcome  --}}
+    <div class="welcome">
+        <h1>
+            BENVENUTO SU CINEMA OK
+        </h1>
+        <p class="title_font">
+            Qui puoi trovare comodamente il catalogo completo dei film e delle serie tv! <br>
+            Iscriviti o esegui l'accesso per avere la tua area riservata e salvare i tuoi film e serieTv preferiti.
+        </p>
+        <div class="auth">
+            <button class="btn">
+                <a href="#">LOGIN</a>
+            </button>
+            <button class="btn">
+                <a href="#">SIGNUP</a>
+            </button>
+        </div>
+    </div>
+    {{--  div separatore  --}}
+    <div class="hr_black"></div>
+    <div class="hr"></div>
+    {{--  sezione film popolari  --}}
+    <div class="popoular_movie">
+        <h2 class="parag_title">
+            FILM
+        </h2>
+        <h6 class="subparag_title">
+            POPOLARI AL MOMENTO
+        </h6>
+        <hr>
+        <div class="cards_container">
+            @each(movie in PMovies)
+            <div class="card_container">
+                <div class="my_card">
+                    @if(movie.backdrop == null)
+                    <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+                    @end
+                    <img src="{{coverLink}}{{movie.backdrop}}" alt="">
+                    <h3>{{movie.title.toUpperCase()}}</h3>
+                    <h6>{{movie.rank}}</h6>
+                    <a href="movie/{{movie.id}}">provami</a>
+                    {{--  <h5>{{movie.overview}}</h5>  --}}
+                    {{--  <h6>{{movie.date}}</h6>  --}}
+                </div>
+            </div>
+            @end
+        </div>
+    </div>
+        {{--  div separatore  --}}
+    <div class="hr_black"></div>
+    <div class="hr"></div>
+    {{--  sezione serie popolari  --}}
+    <div class="popoular_serie">
+        <h2 class="parag_title">
+            SERIE TV
+        </h2>
+        <i class="fa-solid fa-user"></i>
+        <h6 class="subparag_title">
+            POPOLARI AL MOMENTO 
+        </h6>
+        <hr>
+        <div class="cards_container">
+            @each(serie in PSeries)
+            <div class="card_container">
+                <div class="my_card">
+                    @if(serie.backdrop == null)
+                    <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+                    @end
+                    <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+                    <h3>{{serie.name.toUpperCase()}}</h3>
+                    <h6>{{serie.rank}}</h6>
+                    <a href="/{{serie.id}}">provami</a>
+                    {{--  <h5>{{serie.overview}}</h5>  --}}
+                    {{--  <h6>{{serie.date}}</h6>  --}}
+                </div>
+            </div>
+            @end
+        </div>
+    </div>
 </main>
-
+@include('partials/footer')
 @include('partials/end')
 
 

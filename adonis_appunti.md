@@ -151,3 +151,175 @@ N.B: qui tutti i tipi di dato -> https://docs.adonisjs.com/reference/database/ta
     ->@if (movies.legth)
     //contenuto
     @endif
+
+# api su adonis
+
+- dal sito dell'api recupero la chiave privata e la inserisco nel file .env
+    -> THEMOVIEDB_API_TOKEN=f4f382566368553eb6b723d584f2ef4
+
+- informo typesctipt nel file env.ts inserendolo nelle env.roules
+    -> THEMOVIEDB_API_TOKEN:Env.schema.string()
+
+
+
+- creo il file helpers/ApiHelper
+
+import axios from 'axios'
+
+import Logger from '@ioc:Adonis/Core/Logger'
+import { Exception } from '@adonisjs/core/build/standalone'
+
+type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'PATCH'
+
+interface BasicCredentials {
+  username: string
+  password: string
+}
+
+interface ApiHelperConfig {
+  url: string
+  method?: Method
+  baseURL?: string
+  headers?: any
+  params?: any
+  paramsSerializer?: (params: any) => string
+  data?: any
+  timeout?: number
+  auth?: BasicCredentials
+}
+
+export default async (config: ApiHelperConfig) => {
+  try {
+    Logger.info(`Calling '${config.url}'...`)
+    const { data } = await axios(config)
+    Logger.info(`Finish calling '${config.url}'`)
+
+    return data
+  } catch (e) {
+    throw new Exception(`Error calling '${config.url}'`)
+  }
+}
+
+- creo un modello di ciò che voglio estrapolare, basandomi su ciò che contiene la richiesta analizzandola con postman
+
+interface MovieInterface {
+  title: string
+  overview: string
+  backdrop: string
+  date: Date
+  rank: Number
+  id: Number
+}
+
+export class Movie {
+  public title: string
+  public overview: string
+  public backdrop: string
+  public date: Date
+  public rank: Number
+  public id: Number
+
+
+  constructor(movie: MovieInterface) {
+    this.title = movie.title
+    this.overview = movie.overview
+    this.backdrop = movie.backdrop
+    this.date = movie.date
+    this.rank = movie.rank
+    this.id = movie.id
+  }
+
+}
+
+- la sfrutto nel repository
+
+//importo il modello movie fatto in precedenza
+import { Movie } from 'App/Models/Movie'
+//importo api helper ovvero uno schema per le richieste api
+import ApiHelper from 'App/Helpers/ApiHelper'
+//importo env dove avrò la chiave per le richieste api
+import Env from '@ioc:Adonis/Core/Env'
+
+class MovieRepository {
+  //metto in una variabile l'url base così da non ripeterlo
+  private baseUrl = 'https://api.themoviedb.org/3'
+  //eseguo chiamata axios
+  public async popular(): Promise<Array<Movie>> {
+    const response = await ApiHelper({
+      //aggiungo la parte di quary per far capire cosa mostrarmi ad axios
+      url: `${this.baseUrl}/movie/popular`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+        page: 1,
+      },
+    })
+
+    return this.makeMovies(response)
+  }
+
+  public async findById(id: number): Promise<Movie> {
+    const response = await ApiHelper({
+      url: `${this.baseUrl}/movie/${id}`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+      },
+    })
+
+    return this.makeMovie(response)
+  }
+
+  private makeMovie(data: any): Movie {
+    return new Movie({
+      title: data.title,
+      overview: data.overview,
+      backdrop: data.backdrop_path,
+      date: data.release_date,
+      rank: data.vote_average,
+      id: data.id
+    })
+  }
+
+  private makeMovies(data: any): Array<Movie> {
+    return data.results.map((r) => this.makeMovie(r))
+  }
+}
+
+export default new MovieRepository()
+
+- nel repository inserisco la logica 
+
+import MovieRepository from 'App/Repositories/MovieRepository'
+import { Movie } from 'App/Models/Movie'
+
+class MovieService {
+  public async popular(): Promise<Array<Movie>> {
+    return MovieRepository.popular()
+  }
+
+  public async findById(id: number): Promise<Movie> {
+    return MovieRepository.findById(id)
+  }
+}
+
+export default new MovieService()
+
+- infine la utilizzo nel controller 
+
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import MovieService from 'App/services/MovieService'
+import SeriesService from 'App/services/SeriesService'
+
+export default class MoviesController {
+
+    public async index({ view }: HttpContextContract) {
+        const coverLink = 'http://image.tmdb.org/t/p/w342/'
+        const PMovies = await MovieService.popular()
+        const PSeries = await SeriesService.popular()
+        const active = 'home'
+        return await view.render('home',{PMovies,PSeries,coverLink,active})
+      }
+}
+
+- sulla rotta che chiama l'index di questo controller avrò quindi la variabile Movies che sarà piena di film

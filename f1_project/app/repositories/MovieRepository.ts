@@ -8,7 +8,7 @@ import Env from '@ioc:Adonis/Core/Env'
 class MovieRepository {
   //metto in una variabile l'url base così da non ripeterlo
   private baseUrl = 'https://api.themoviedb.org/3'
-  //eseguo chiamata axios
+  //eseguo chiamata axios per i film popolare (utilizzato nella home)
   public async popular(): Promise<Array<Movie>> {
     const response = await ApiHelper({
       //aggiungo la parte di quary per far capire cosa mostrarmi ad axios
@@ -20,9 +20,51 @@ class MovieRepository {
       },
     })
 
-    return this.makeMovies(response)
+    return this.makePMovies(response)
   }
+  //eseguo chiamata axios per i film popolare (utilizzato nella home)
+  public async upcoming(): Promise<Array<Movie>> {
+    const response = await ApiHelper({
+      //aggiungo la parte di quary per far capire cosa mostrarmi ad axios
+      url: `${this.baseUrl}/movie/upcoming`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+        page: 1,
+      },
+    })
 
+    return this.makeUpMovies(response)
+  }
+  //eseguo chiamata axios per i film popolare (utilizzato nella home)
+  public async onTheatres(): Promise<Array<Movie>> {
+    const response = await ApiHelper({
+      //aggiungo la parte di quary per far capire cosa mostrarmi ad axios
+      url: `${this.baseUrl}/movie/now_playing`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+        page: 1,
+      },
+    })
+
+    return this.makeOnMovies(response)
+  }
+  //chiamata film meglio votati 
+  public async top(): Promise<Array<Movie>> {
+    const response = await ApiHelper({
+      //aggiungo la parte di quary per far capire cosa mostrarmi ad axios
+      url: `${this.baseUrl}/movie/top_rated`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+        page: 1,
+      },
+    })
+
+    return this.makeTopMovies(response)
+  }
+  //cerco by id (vista show)
   public async findById(id: number): Promise<Movie> {
     const response = await ApiHelper({
       url: `${this.baseUrl}/movie/${id}`,
@@ -34,16 +76,31 @@ class MovieRepository {
 
     return this.makeMovie(response)
   }
-
+  //ritorno il singolo film
   private makeMovie(data: any): Movie {
     return new Movie({
       title: data.title,
       overview: data.overview,
       backdrop: data.backdrop_path,
+      date: data.release_date,
+      rank: data.vote_average,
+      id: data.id
     })
   }
-
-  private makeMovies(data: any): Array<Movie> {
+  //ritorno i film più popolari
+  private makePMovies(data: any): Array<Movie> {
+    return data.results.map((r) => this.makeMovie(r))
+  }
+   //ritorno i film attualmente in sala
+   private makeOnMovies(data: any): Array<Movie> {
+    return data.results.map((r) => this.makeMovie(r))
+  }
+  //ritorno i film meglio valutati
+  private makeTopMovies(data: any): Array<Movie> {
+    return data.results.map((r) => this.makeMovie(r))
+  }
+  //ritorno le prossime uscite
+  private makeUpMovies(data: any): Array<Movie> {
     return data.results.map((r) => this.makeMovie(r))
   }
 }

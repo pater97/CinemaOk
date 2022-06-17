@@ -1,0 +1,62 @@
+{{--  
+    mostro ultime uscite
+    i meglio valutati 
+    prossimamente in uscita 
+    --}}
+@include('partials/head')
+@include('partials/nav')
+<main id="movies">
+    {{--  film vetrina  --}}
+    @if(firstMovie.backdrop !== null)
+    <section class="film_vetrina">
+        <h2>
+            Ecco il film consigliato attualmente in sala!
+        </h2>
+        <h3>{{firstMovie.title}}</h3>
+        <img src="{{coverLink}}{{firstMovie.backdrop}}" alt="">
+        <p>{{firstMovie.overview}}</p>
+    </section>
+    @endif
+    {{--  sezione in sala  --}}
+    <section class="on_films">
+        <h2>film in sala</h2>
+        @each(movie in onMovies)
+            <h3>{{movie.title}}</h3>
+            <a href="movies/{{movie.id}}">provami</a>
+            @if(movie.backdrop == null)
+                <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+            @else
+                <img src="{{coverLink}}{{movie.backdrop}}" alt="cover movie">
+            @end
+            {{--  <p>{{movie.overview}}</p>  --}}
+      @end
+    </section>
+    {{--  sezione in arrivo  --}}
+    <section class="on_films">
+        <h2>film in arrivo</h2>
+        @each(movie in upMovies)
+            <h3>{{movie.title}}</h3>
+            @if(movie.backdrop == null)
+                <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+            @else
+                <img src="{{coverLink}}{{movie.backdrop}}" alt="cover movie">
+            @end
+            {{--  <p>{{movie.overview}}</p>  --}}
+      @end
+    </section>
+    {{--  sezione meglio valutati  --}}
+    <h2>i meglio valutati di sempre</h2>
+    <section class="top_films">
+        @each(movie in topMovies)
+            <h3>{{movie.title}}</h3>
+            @if(movie.backdrop == null)
+                <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+            @else
+                <img src="{{coverLink}}{{movie.backdrop}}" alt="cover movie">
+            @end
+            <p>{{movie.overview}}</p>
+      @end
+    </section>
+</main>
+@include('partials/footer')
+@include('partials/end')
