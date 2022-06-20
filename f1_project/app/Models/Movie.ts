@@ -5,6 +5,8 @@ interface MovieInterface {
   date: Date
   rank: Number
   id: Number
+  homepage?: string
+  genres?: Array<string>
 }
 
 export class Movie {
@@ -14,6 +16,8 @@ export class Movie {
   public date: Date
   public rank: Number
   public id: Number
+  public homepage?: string
+  public genres?: Array<string>
 
 
   constructor(movie: MovieInterface) {
@@ -23,6 +27,8 @@ export class Movie {
     this.date = movie.date
     this.rank = movie.rank
     this.id = movie.id
+    this.homepage = movie.homepage
+    this.genres = movie.genres
   }
 
 }

@@ -323,3 +323,71 @@ export default class MoviesController {
 }
 
 - sulla rotta che chiama l'index di questo controller avrò quindi la variabile Movies che sarà piena di film
+
+# auth
+
+https://adocasts.com/lessons/adonisjs-authentication-in-15-minutes
+
+- installare pacchetto per l'hasing delle password
+   -> **npm i phc-argon2**
+
+- installare e configurare il pacchetto auth
+
+//installa
++ npm i @adonisjs/auth
+//configura
++ node ace configure @adonisjs/auth
+
+- in start/kernel.ts inserire il middleware silentAuth
+->
+Server.middleware.register([
+  () => import('@ioc:Adonis/Core/BodyParser'),
+  () => import('App/Middleware/SilentAuth') // ++
+])
+
+- creazione controller auth 
+  -> **node ace make:controller Auth**
+
+- renderizzare nel controller le pagine login e register
+  ->
+   public async registerShow({ view }: HttpContextContract) {
+    return view.render('auth/register')
+  }
+
+  public async loginShow({ view }: HttpContextContract) {
+    return view.render('auth/login')
+  }
+
+- creare le rotte per entrambe le pagine
+Route.get('register', 'AuthController.registerShow').as('auth.register.show')
+Route.get('login', 'AuthController.loginShow').as('auth.login.show')
+
+- crere le pagine eseguendo 
+  + **node ace make:view auth/register**
+  + **node ace make:view auth/login**
+
+- creo le viste form di registrazione e login 
+- eseguo nell'authcontroller la logica che mi permette di registrarmi e loggarmi 
+
+cosa fare nel dettaglio?
+Per il nostro metodo di registrazione, stiamo prima creando uno schema di convalida per il nostro utente. Ciò convaliderà che il nostro nome utente e l'e-mail sono univoci, che la nostra e-mail è un'e-mail valida e che la nostra password è lunga almeno 8 caratteri. Quindi, convalidiamo utilizzando il nostro schema utente, che restituisce i dati convalidati. Utilizziamo quindi i dati convalidati per creare il record del nostro utente. Quindi, utilizziamo il nuovo record di quell'utente per accedere all'utente.
+
+Per l'accesso, tutto ciò che stiamo facendo è prendere l'uid e la password dal corpo della richiesta, non è necessario convalidare qui il tentativo di chiamata sarà sufficiente. Quindi forniamo i valori uid e password nella auth.attemptchiamata per tentare di accedere. Se fallisce, catturiamo quell'errore e restituiamo un vago errore flash sulla sessione e respingiamo l'utente alla pagina del modulo.
+
+Per la disconnessione, chiamiamo semplicemente auth.logout, che si occuperà di tutto per noi.
+
+- una volta inserita la logica di questi metodi nel controller specificarne le rotte , ecco le rotte complete
+Route.get('register', 'AuthController.registerShow').as('auth.register.show')
+Route.post('register', 'AuthController.register').as('auth.register') // ++
+Route.get('login', 'AuthController.loginShow').as('auth.login.show')
+Route.post('login', 'AuthController.login').as('auth.login')          // ++
+Route.get('logout', 'AuthController.logout').as('auth.logout')        // ++
+
+- infine in edge posso usare auth.user per testare l'autentificazione, di conseguenza esempio nella nav sarà
+
+...
+ @if (!auth.user)
+    <a href="{{ route('auth.register') }}">register</a>
+    <a href="{{ route('auth.login') }}">Login</a>
+  @endif
+    <a href="{{ route('auth.logout') }}">Logout</a>

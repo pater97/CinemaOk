@@ -1,0 +1,47 @@
+@include('partials/head')
+@include('partials/nav')
+<main id="serie">
+    <section class="vetrina">
+        <img src="{{coverLink}}{{firstSerie.backdrop}}" alt="">
+        <h2>
+            Seire tv consigliata
+        </h2>
+        <h3>{{firstSerie.name}}</h3>
+        <p>{{firstSerie.overview}}</p>
+        <h6>{{firstSerie.rank}}</h6>
+        <a href="/series/{{firstSerie.id}}">GUARDA LA SCHEDA COMPLETA</a>
+    </section>
+    <section class="on_air container">
+        <h2>Serie tv in onda</h2>
+        <div class="serie_container">
+            @each(serie in onAir)
+              <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+              <h3>{{serie.name}}</h3>
+              <a href="/series/{{serie.id}}">guarda di più</a>
+            @endeach
+        </div>
+    </section>
+    <section class="top container">
+        <h2>Serie tv meglio valutate</h2>
+        <div class="serie_container">
+            @each(serie in top)
+              <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+              <h3>{{serie.name}}</h3>
+              <h3>{{serie.rank}}</h3>
+              <a href="/series/{{serie.id}}">guarda di più</a>
+            @endeach
+        </div>
+    </section>
+    <section class="pop container">
+        <h2>Serie tv popolari</h2>
+        <div class="serie_container">
+            @each(serie in pop)
+              <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+              <h3>{{serie.name}}</h3>
+              <a href="/series/{{serie.id}}">guarda di più</a>
+            @endeach
+        </div>
+    </section>
+</main>
+@include('partials/footer')
+@include('partials/end')

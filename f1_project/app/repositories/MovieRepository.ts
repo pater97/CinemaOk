@@ -1,5 +1,9 @@
 //importo il modello movie fatto in precedenza
 import { Movie } from 'App/Models/Movie'
+//importo il modello video per estrapolare il trailer
+import { Video } from 'App/Models/Video'
+//importo il modello delle recensioni
+import { Reviews } from 'App/Models/Reviews'
 //importo api helper ovvero uno schema per le richieste api
 import ApiHelper from 'App/Helpers/ApiHelper'
 //importo env dove avrò la chiave per le richieste api
@@ -76,7 +80,43 @@ class MovieRepository {
 
     return this.makeMovie(response)
   }
-  //ritorno il singolo film
+  //eseguo chiamata axios x film simili
+  public async similar(id:number): Promise<Array<Movie>> {
+    const response = await ApiHelper({
+      //aggiungo la parte di quary per far capire cosa mostrarmi ad axios
+      url: `${this.baseUrl}/movie/${id}/similar`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+        page: 1,
+      },
+    })
+
+    return this.makeSimilarMovies(response)
+  }
+  //chiamo la lista dei trailer per id del film
+  public async VideoTrailer(id: number): Promise<Array<Video>> {
+    const response = await ApiHelper({
+      url: `${this.baseUrl}/movie/${id}/videos`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'it-IT',
+      },
+    })
+    return this.keyTrailer(response)
+  }
+  //chiamata per le recensioni
+  public async getReviews(id: number): Promise<Array<Reviews>> {
+    const response = await ApiHelper({
+      url: `${this.baseUrl}/movie/${id}/reviews`,
+      params: {
+        api_key: Env.get('THEMOVIEDB_API_TOKEN'),
+        language: 'en-US',
+      },
+    })
+    return this.reviews(response)
+  }
+  //costrutto singolo film
   private makeMovie(data: any): Movie {
     return new Movie({
       title: data.title,
@@ -84,9 +124,27 @@ class MovieRepository {
       backdrop: data.backdrop_path,
       date: data.release_date,
       rank: data.vote_average,
-      id: data.id
+      id: data.id,
+      homepage: data.homepage,
+      genres: data.genres
     })
   }
+  //costrutto del trailer
+  private makeKeyTrailer(data:any):Video {
+    return new Video({
+      key:data.key
+    })
+  }
+  //costrutto delle recensioni
+  private makeReviews(data:any):Reviews {
+    return new Reviews({
+      author:data.author_details,
+      content:data.content,
+      created_at:data.created_at
+    })
+  }
+  
+  
   //ritorno i film più popolari
   private makePMovies(data: any): Array<Movie> {
     return data.results.map((r) => this.makeMovie(r))
@@ -102,6 +160,18 @@ class MovieRepository {
   //ritorno le prossime uscite
   private makeUpMovies(data: any): Array<Movie> {
     return data.results.map((r) => this.makeMovie(r))
+  }
+  //serie tv simili
+  private makeSimilarMovies(data: any): Array<Movie> {
+    return data.results.map((r) => this.makeMovie(r))
+  }
+  // ritorno i trailer video
+  private keyTrailer(data: any): Array<Video> {
+    return data.results.map((r) => this.makeKeyTrailer(r))
+  }
+  // ritorno le recensioni
+  private reviews(data: any): Array<Reviews> {
+    return data.results.map((r) => this.makeReviews(r))
   }
 }
 

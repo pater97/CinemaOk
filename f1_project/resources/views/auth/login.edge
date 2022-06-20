@@ -1,0 +1,26 @@
+@include('partials/head')
+@include('partials/nav')
+<div id="form_auth">
+
+  <form action="{{ route('auth.login') }}" method="POST">
+      @if (flashMessages.has('form'))
+        <div role="alert">
+          {{ flashMessages.get('form') }}
+        </div>
+      @endif
+    
+      <label>
+        <small>Username or Email</small>
+        {{--  l'input si chiama uid come descritto in config/auth che specifica che cosa prendere in considerazione per il log in  --}}
+        <input type="text" name="uid" />
+      </label>
+    
+      <label>
+        <small>Password</small>
+        <input type="password" name="password" />
+      </label>
+    
+      <button type="submit">Login</button>
+    </form>
+</div>
+  @include('partials/end')

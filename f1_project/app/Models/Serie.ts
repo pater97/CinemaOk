@@ -5,7 +5,9 @@ interface SerieInterface {
     date: Date
     rank: Number
     id: Number
-
+    homepage?:string
+    genres?: Array<string>
+    seasons?:Array<object>
   }
   
   export class Serie {
@@ -15,6 +17,9 @@ interface SerieInterface {
     public date: Date
     public rank: Number
     public id: Number
+    public homepage?:string
+    public genres?: Array<string>
+    public seasons?: Array<object>
   
     constructor(serie: SerieInterface) {
       this.name = serie.name
@@ -23,6 +28,9 @@ interface SerieInterface {
       this.date = serie.date
       this.rank = serie.rank
       this.id = serie.id
+      this.homepage = serie.homepage
+      this.genres = serie.genres
+      this.seasons = serie.seasons
     }
   
   }

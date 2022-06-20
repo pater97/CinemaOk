@@ -67,6 +67,26 @@ body{
         font-weight: 900;
     }
 }
+#form_auth{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 5rem auto;
+    form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        label{
+            margin: .6rem 0;
+            small{
+                display: block;
+            }
+        }
+        button{
+            margin-top: 1rem;
+        }
+    }
+}
 // header
 header{
     background-color: $dark-color;

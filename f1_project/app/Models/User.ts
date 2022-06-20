@@ -9,20 +9,14 @@ export default class User extends BaseModel {
   @column()
   public email: string
 
+  @column()
+  public username: string
+
   @column({serializeAs:null})
   public password: string
 
   @column()
-  public name: string
-
-  @column()
-  public surname: string
-
-  @column()
-  public avatar: string
-
-  @column()
-  public isAdmin: boolean
+  public is_admin: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

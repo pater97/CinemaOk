@@ -1,5 +1,7 @@
 import MovieRepository from 'App/Repositories/MovieRepository'
 import { Movie } from 'App/Models/Movie'
+import { Video } from 'App/Models/Video'
+import { Reviews } from 'App/Models/Reviews'
 
 class MovieService {
   //ritorno i film popolari
@@ -16,12 +18,22 @@ class MovieService {
   }
   //ritorno i film in sala
   public async onTheatres(): Promise<Array<Movie>> {
-    console.log(MovieRepository.onTheatres())
     return MovieRepository.onTheatres()
   }
   //cerco per id
   public async findById(id: number): Promise<Movie> {
     return MovieRepository.findById(id)
+  }
+  public async similar(id:number) : Promise<Array<Movie>> {
+    return MovieRepository.similar(id)
+  }
+  //gestione del trialer
+  public async getTrailer(id:number) : Promise<Array<Video>>{
+    return MovieRepository.VideoTrailer(id)
+  }
+  //gestione delle recensioni
+  public async getReviews(id:number) : Promise<Array<Reviews>>{
+    return MovieRepository.getReviews(id)
   }
 }
 

@@ -1,51 +1,50 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import MovieService from 'App/services/MovieService'
+import SeriesService from 'App/services/SeriesService'
 
-export default class MoviesController {
+export default class SerieController {
 
     public async index({ view }: HttpContextContract) {
         //path per visualizzare le immagini
         const coverLink = 'http://image.tmdb.org/t/p/w342/'
         //classe active per la nav
-        const active = 'movies'
-        //lista di film in base al tipo
-        const topMovies = await MovieService.top()
-        const upMovies = await MovieService.upcoming()
-        const popMovies = await MovieService.popular()
+        const active = 'series'
+        //lista di serie in base al tipo
+       const onAir = await SeriesService.onAir()
+       const top = await SeriesService.top()
+       const pop = await SeriesService.popular()
         //creo funzione per ricevere un film randomico da mostrare in prima pagina
         //definisco l'array nel quale andranno ad inserirsi i film
         let id_array:Array<string> = []
         //creo la funzione per pushare l'id dei film nell'array
-        await popMovies.forEach(element => {
-            let id_movie = element.id.toString()
-            id_array.push(id_movie)
+        await onAir.forEach(element => {
+            let id_serie = element.id.toString()
+            id_array.push(id_serie)
         }) 
-        //verifico che sia andata a buon fine
-        // console.log(id_array)
-        //creo la funzione randomica
+        //verifico che sia andata a buon fine        //creo la funzione randomica
         const random = Math.floor(Math.random() * 19);  
         //estrapolo il film casuale
         const id_random = id_array[random]
         //ottengo il film
-        const firstMovie = await MovieService.findById(+id_random)
+        const firstSerie = await SeriesService.findById(+id_random)
         // console.log(firstMovie)
-        return await view.render('movie/index',{active,coverLink,topMovies,upMovies,popMovies,firstMovie})
+        return await view.render('serie/index',{active,coverLink,onAir,top,pop,firstSerie})
       }
 
       public async show({view,params}:HttpContextContract){
         //classe active per la nav
-        const active = 'movies'
+        const active = 'series'
         //path per visualizzare le immagini
         const coverLink = 'http://image.tmdb.org/t/p/w342/'
         //ricerco per id e rispondo con il film 
-        const Movie = await MovieService.findById(params.id)
+        const Serie = await SeriesService.findById(params.id)
+        console.log(Serie)
         //film simili
-        const similar = await MovieService.similar(params.id)
+        const similar = await SeriesService.similar(params.id)
         //estrapolo il video trailer
-        const trailerKeys = await MovieService.getTrailer(params.id)
+        const trailerKeys = await SeriesService.getTrailer(params.id)
         // console.log(trailerKeys)
-        const reviews = await MovieService.getReviews(params.id)
+        const reviews = await SeriesService.getReviews(params.id)
         //renderizzo la pagina con il film in questione
-        return await view.render('movie/show',{Movie,active,coverLink,trailerKeys,reviews,similar})
+        return await view.render('serie/show',{Serie,active,coverLink,trailerKeys,reviews,similar})
       }
 }

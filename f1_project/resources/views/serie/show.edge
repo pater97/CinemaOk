@@ -1,0 +1,50 @@
+@include('partials/head')
+@include('partials/nav')
+<main id="show_serie">
+    <img src="{{coverLink}}{{Serie.backdrop}}" alt="">
+    <h2>{{Serie.name}}</h2>
+    <p>{{Serie.overview}}</p>
+    <h6>{{Serie.rank}}</h6>
+    <div class="season">
+        @each(s in Serie.seasons)
+          <h6>{{s.name}}</h6>
+          <h6>{{s.episode_count}}</h6>
+          <img src="{{coverLink}}{{s.poster_path}}" alt="">
+        @endeach
+    </div>
+    <ul>
+        @each(review in reviews)
+          <li>
+            <h6>{{review.author.username}}</h6>
+            <h6>{{review.created_at}}</h6>
+            @if(review.author.avatar_path)
+                <img src="{{coverLink}}{{review.author.avatar_path}}" alt="">
+            @else
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/User_with_smile.svg/1200px-User_with_smile.svg.png" alt="">
+            @end
+            <p>{{review.content}}</p>
+          </li>
+        @endeach
+    </ul>
+    {{--  <video src="https://www.youtube.com/watch?v={{trailerKeys[0].key}}"></video>  --}}
+    @if(trailerKeys[0].key)
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailerKeys[0].key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    @endif
+    <ul>
+        @each(genres in Serie.genres)
+            <li>
+                {{genres.name}}
+            </li>
+        @end
+    </ul>
+    <h6>{{Serie.date}}</h6>
+    <div class="similar">
+        <h2>film simili</h2>
+        @each(serie in similar)
+          <h3>{{serie.name}}</h3>
+        @endeach
+    </div>
+</main>
+@include('partials/footer')
+@include('partials/end')
