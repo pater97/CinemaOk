@@ -1,45 +1,47 @@
-@include('partials/head')
-@include('partials/nav')
-<div id="form_auth">
-    <form action="{{ route('auth.register') }}" method="POST">
-        <label>
-          <small> Username</small>
-          <input type="text" name="username" value="{{ flashMessages.get('username') ?? '' }}" />
-          @if (flashMessages.has('errors.username'))
-            <small style="color: red;">
-              {{ flashMessages.get('errors.username') }}
-            </small>
-          @endif
-        </label>
-      
-        <label>
-          <small>Email</small>
-          <input type="email" name="email" value="{{ flashMessages.get('email') ?? '' }}" />
-          @if (flashMessages.has('errors.email'))
-            <small style="color: red;">
-              {{ flashMessages.get('errors.email') }}
-            </small>
-          @endif
-        </label>
-    
-        
-        <label>
-            <small>Password</small>
-            <input type="password" name="password" />
-            @if (flashMessages.has('errors.password'))
-            <small style="color: red;">
-                {{ flashMessages.get('errors.password') }}
-            </small>
+@layout('layouts/main')
+@set('title','REGISTER - CINEMAOK')
+@section('content')
+  <div id="form">
+      <form action="{{ route('auth.register') }}" method="POST">
+        {{ csrfField() }}
+          <label>
+            <small> Username</small>
+            <input type="text" name="username" value="{{ flashMessages.get('username') ?? '' }}" />
+            @if (flashMessages.has('errors.username'))
+              <small style="color: red;">
+                {{ flashMessages.get('errors.username') }}
+              </small>
             @endif
-        </label>
+          </label>
         
-        <label>
-            <small>Sei admin? inserisci il codice per verificare</small>
-            <input type="text" name="is_admin" id="is_admin"/>
-        </label>
+          <label>
+            <small>Email</small>
+            <input type="email" name="email" value="{{ flashMessages.get('email') ?? '' }}" />
+            @if (flashMessages.has('errors.email'))
+              <small style="color: red;">
+                {{ flashMessages.get('errors.email') }}
+              </small>
+            @endif
+          </label>
+      
+          
+          <label>
+              <small>Password</small>
+              <input type="password" name="password" />
+              @if (flashMessages.has('errors.password'))
+              <small style="color: red;">
+                  {{ flashMessages.get('errors.password') }}
+              </small>
+              @endif
+          </label>
+          
+          <label>
+              <small>Sei admin? inserisci il codice per verificare</small>
+              <input type="text" name="is_admin" id="is_admin"/>
+          </label>
 
-        <button type="submit">Register</button>
-        
-      </form>
-</div>
-  @include('partials/end')
+          <button type="submit">Register</button>
+
+        </form>
+  </div>
+@endsection

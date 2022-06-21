@@ -1,5 +1,4 @@
 
-import { Request } from '@adonisjs/core/build/standalone'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 //importo le logiche native adonis di schema e regole
 import { schema, rules } from '@ioc:Adonis/Core/Validator'

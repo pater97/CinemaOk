@@ -67,7 +67,7 @@ body{
         font-weight: 900;
     }
 }
-#form_auth{
+#form{
     display: flex;
     justify-content: center;
     width: 80%;
@@ -86,6 +86,16 @@ body{
             margin-top: 1rem;
         }
     }
+}
+.fa-users{
+    color: white;
+    &:hover{
+        color: $brand-color;
+        cursor: pointer;
+    }
+}
+.background_brand{
+    background-color: $brand-color;
 }
 // header
 header{

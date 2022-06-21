@@ -1,0 +1,52 @@
+@layout('layouts/main')
+@set('title','USERCREATE - CINEMAOK')
+@section('content')
+<div id="form">
+    <form action="{{ route('admin.update') }}" method="post">
+        {{ csrfField() }}
+      
+        <label for="username">
+            <small>nuovo username</small>
+            <input type="text" name="username" id="username" value="{{user.username}}">
+            @if (flashMessages.has('errors.username'))
+              <small style="color: red;">
+                {{ flashMessages.get('errors.username') }}
+              </small>
+            @endif
+        </label>
+    
+        <label for="email">
+            <small>nuova email</small>
+            <input type="email" name="email" id="email" value="{{user.email}}">
+            @if (flashMessages.has('errors.email'))
+              <small style="color: red;">
+                {{ flashMessages.get('errors.email') }}
+              </small>
+            @endif
+        </label>
+
+        @if(failedPassword)
+          <h5 style="color:red">LE PASSWORD NON CORRISPONDONO</h5>
+        @endif
+
+        <label for="password">
+            <small>nuova password</small>
+            <input type="password" name="password" id="password">
+            @if (flashMessages.has('errors.password'))
+              <small style="color: red;">
+                  {{ flashMessages.get('errors.password') }}
+              </small>
+              @endif
+        </label>
+
+        <label>
+            <small>inserire il codice per verificare utente admin</small>
+            <input type="text" name="is_admin" id="is_admin"/>
+        </label>
+        
+        <input type="hidden" name="id" id="id" value="{{user.id}}">
+        <button type="submit" class="btn text-white">Crea utente</button>
+    </form>
+</div>
+  
+@endsection

@@ -3,9 +3,9 @@
   <header>
     <nav id="navbar" class="container">
       <div class="left">
-        <a class="{{active === 'home' ? 'active' : ''}}" href="/">HOME</a>
-        <a class="{{active === 'movies' ? 'active' : ''}}" href="/movies">MOVIE</a>
-        <a class="{{active === 'series' ? 'active' : ''}}" href="/series">SERIES</a>
+        <a class="{{active === 'home' ? 'active' : ''}}" href="{{ route('home') }}">HOME</a>
+        <a class="{{active === 'movies' ? 'active' : ''}}" href="{{ route('movies.index') }}">MOVIE</a>
+        <a class="{{active === 'series' ? 'active' : ''}}" href="{{ route('series.index') }}">SERIES</a>
         @if(auth.user)
           <a href="#">FAVORITES</a>
         @endif
@@ -17,10 +17,11 @@
       </div>
       <div class="right">
         @if (!auth.user)
-          <a href="{{ route('auth.register') }}">register</a>
-          <a href="{{ route('auth.login') }}">Login</a>
+          <a href="{{ route('auth.register') }}">REGISTER</a>
+          <a href="{{ route('auth.login') }}">LOGIN</a>
         @else
-          <a href="{{ route('auth.logout') }}">Logout</a>
+          <a href="{{ route('admin.index') }}"> <i class="fa-solid fa-users"></i></a>
+          <a href="{{ route('auth.logout') }}">LOGOUT</a>
         @end
       </div>
     </nav>

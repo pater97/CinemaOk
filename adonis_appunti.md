@@ -391,3 +391,24 @@ Route.get('logout', 'AuthController.logout').as('auth.logout')        // ++
     <a href="{{ route('auth.login') }}">Login</a>
   @endif
     <a href="{{ route('auth.logout') }}">Logout</a>
+
+# csrf token
+
+- installare 
+  -> **npm i @adonisjs/shield**
+- configurare
+  -> **node ace configure @adonisjs/shield**
+- in start/kernel.ts inserire il middleware
+  -> () => import('@ioc:Adonis/Addons/Shield')
+- infine in ogni form che comunica con il db dovrà essere presente il token
+  -> <form action="{{ route('PostsController.store') }}" method="post">
+        {{ csrfField() }}
+        ...
+
+# jwt
+
+- installare il pacchetto 
+  -> **npm install adonis5-jwt**
+
+- configurare il pacchetto
+  -> **node ace configure adonis5-jwt**
