@@ -9,6 +9,10 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 export default class SilentAuthMiddleware {
   /**
    * Handle request
+   *
+   * @param root0
+   * @param root0.auth
+   * @param next
    */
   public async handle({ auth }: HttpContextContract, next: () => Promise<void>) {
     /**

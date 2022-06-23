@@ -22,6 +22,9 @@ export default class AuthMiddleware {
    * The authentication loop stops as soon as the user is authenticated using any
    * of the mentioned guards and that guard will be used by the rest of the code
    * during the current request.
+   *
+   * @param auth
+   * @param guards
    */
   protected async authenticate(auth: HttpContextContract['auth'], guards: (keyof GuardsList)[]) {
     /**
@@ -59,6 +62,11 @@ export default class AuthMiddleware {
 
   /**
    * Handle request
+   *
+   * @param root0
+   * @param root0.auth
+   * @param next
+   * @param customGuards
    */
   public async handle(
     { auth }: HttpContextContract,

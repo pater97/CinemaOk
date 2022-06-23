@@ -1,6 +1,6 @@
 /**
  *
- * @typedef {Object} DTSearch
+ * @typedef {object} DTSearch
  * @property {string} value Value to search.
  * @property {boolean} regex Is it a regex?
  * @category DataTable
@@ -12,7 +12,7 @@ interface DTSearch {
 
 /**
  *
- * @typedef {Object} DTRequestColumn
+ * @typedef {object} DTRequestColumn
  * @property {string} data Column name on db.
  * @property {string} name Column name to show on table.
  * @property {boolean} searchable Is it searchable?
@@ -30,7 +30,7 @@ interface DTRequestColumn {
 
 /**
  *
- * @typedef {Object} DTRequestOrder
+ * @typedef {object} DTRequestOrder
  * @property {number} column Column name on db.
  * @property {('asc' | 'desc')} dir Sorting direction.
  * @category DataTable
@@ -42,7 +42,7 @@ interface DTRequestOrder {
 
 /**
  *
- * @typedef {Object} DTRequest
+ * @typedef {object} DTRequest
  * @property {number} draw Write version.
  * @property {Array<DTRequestColumn>} columns Array of required columns
  * @property {Array<DTRequestOrder>} order Array of sorting types.

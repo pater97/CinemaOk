@@ -9,7 +9,7 @@ import DTRequest from 'App/Interfaces/DTRequest'
 /**
  *
  *
- * @typedef {Object} DTFilter
+ * @typedef {object} DTFilter
  * @property {string} column Column name.
  * @property {string} value Column value.
  * @property {boolean} isRegex Is it a regex?
@@ -65,7 +65,7 @@ class DataTableService {
   private recordsFiltered: number
 
   /**
-   * @type {Array<Object.<string, any>>} Array of elements to return.
+   * @type {Array<Object<string, any>>} Array of elements to return.
    * @private
    */
   private data: Array<{ [key: string]: any }>

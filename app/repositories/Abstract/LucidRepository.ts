@@ -137,8 +137,8 @@ abstract class LucidRepository<T extends LucidModel> {
   /**
    * Get only fillable data
    *
-   * @param {Object} object Object to filter.
-   * @return {Promise<Object>} Filtered object.
+   * @param {object} object Object to filter.
+   * @return {Promise<object>} Filtered object.
    * @private
    */
   private onlyFillable(object) {
