@@ -1,0 +1,53 @@
+@layout('layouts/main')
+@set('title','MOVIE - CINEMAOK')
+@section('content')
+    <main class="show_film container" id="show_movie">
+        <img src="{{coverLink}}{{Movie.backdrop}}" alt="">
+        <h2>{{Movie.title}}</h2>
+        <p>{{Movie.overview}}</p>
+        <h6>{{Movie.rank}}</h6>
+        <ul>
+            @each(review in reviews)
+            <li>
+                <h6>{{review.author.name}}</h6>
+                <h6>{{review.created_at}}</h6>
+                <img src="{{coverLink}}{{review.author.avatar_path}}" alt="">
+                <p>{{review.content}}</p>
+            </li>
+            @endeach
+        </ul>
+        {{--  <video src="https://www.youtube.com/watch?v={{trailerKeys[0].key}}"></video>  --}}
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailerKeys[0].key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <ul>
+            @each(genres in Movie.genres)
+            <li>
+                    {{genres.name}}
+                </li>
+            @end
+        </ul>
+        <h6>{{Movie.date}}</h6>
+        <iframe src="{{Movie.homepage}}"></iframe>
+        <div class="similar">
+            <h2>film simili</h2>
+            @each(movie in similar)
+            <h3>{{movie.title}}</h3>
+            @endeach
+        </div>
+        {{--  form per aggiungere ai preferiti  --}}
+        <hr>
+        <h2 class="text-center">AGGIUNGI AI PREFERITI</h2>
+        <form action="{{ route('favorite.add') }}" method="post">
+            {{ csrfField() }}
+          
+            <label for="movie_id">
+                <input type="hidden" name="movie_id" id="movie_id" value="{{Movie.id}}">
+            </label>
+          
+            <button type="submit" class="btn text-white">Aggiungi ai preferiti</button>
+        </form>
+        
+    </main>
+    @endsection
+    @section('footer')
+    @include('partials/footer')
+@endsection

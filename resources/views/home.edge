@@ -1,0 +1,83 @@
+@layout('layouts/main')
+@set('title','HOME - CINEMAOK')
+@section('content')
+    <main id="homepage" class="container">
+        <div class="left_container">
+            <h2 class="title_section my-3 brand_text">
+                FILM IN EVIDENZA
+            </h2>
+            <a href="movies/{{firstMovie.id}}">
+                <section class="film_vetrina">
+                    <img src="{{coverLink}}{{firstMovie.backdrop}}" alt="">
+                    <div class="details">
+                        <h2>{{firstMovie.title.toUpperCase()}}</h2>
+                        <p>{{firstMovie.overview}}</p>
+                        <div class="subdetails">
+                            <ul>
+                                @each(genre in firstMovie.genres)
+                                    <li>{{genre.name}}</li>
+                                @endeach
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </a>
+            {{--  sezione film popolari  --}}
+            <hr>
+            <section class="films_container">
+                <div class="popoular_movie">
+                    <h2 class="title_section my-3 brand_text">
+                        FILM IN SALA
+                    </h2>
+                    <div class="cards_container">
+                        @each(movie in Movies)
+                        <div class="card_container">
+                            <div class="my_card">
+                                <a href="movies/{{movie.id}}">
+                                    @if(movie.backdrop == null)
+                                    <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+                                    @end
+                                    <img src="{{coverLink}}{{movie.backdrop}}" alt="">
+                                    <h3>{{movie.title.toUpperCase()}}</h3>
+                                </a>
+                            </div>
+                        </div>
+                        @end
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="right_container">
+            <section class="series_container">
+                {{--  sezione serie popolari  --}}
+                <div class="popoular_serie">
+                    <h2 class="title_section my-3 brand_text">
+                        SERIE TV IN ONDA 
+                    </h2>
+                    <div class="cards_container">
+                        @each(serie in Series)
+                        <div class="card_container card_serie">
+                            <a href="series/{{serie.id}}">
+                                <div class="my_card">
+                                    @if(serie.backdrop == null)
+                                    <img src="https://www.zetatielle.com/wp-content/uploads/2020/08/serie-tv.jpg" alt="">
+                                    @end
+                                    <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+                                    <h3>{{serie.name.toUpperCase()}}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        @end
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+@endsection
+@section('footer')
+    @include('partials/footer')
+@endsection
+
+
+
+

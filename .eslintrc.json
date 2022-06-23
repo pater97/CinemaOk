@@ -1,0 +1,9 @@
+{
+  "extends": ["plugin:adonis/typescriptApp", "prettier", "plugin:jsdoc/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "jsdoc/check-tag-names": "off",
+    "jsdoc/no-undefined-types": "off"
+  }
+}

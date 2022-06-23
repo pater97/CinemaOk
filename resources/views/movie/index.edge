@@ -1,0 +1,88 @@
+@layout('layouts/main')
+@set('title','MOVIES - CINEMAOK')
+@section('content')
+    <main id="movies" class="container">
+        {{--  film vetrina  --}}
+        @if(firstMovie.backdrop !== null)
+        <section class="film_vetrina">
+            <h2 class="brand_text">
+                FILM CONSIGLIATO ATTUALMENTE IN SALA
+            </h2>
+            <hr>
+            <div class="movie_on">
+                <div class="image">
+                    <img src="{{coverLink}}{{firstMovie.backdrop}}" alt="">
+                </div>
+                <div class="description">
+                    <h3 class="brand_text">{{firstMovie.title.toUpperCase()}}</h3>
+                    <p>{{firstMovie.overview}}</p>
+                    <div class="subdetails">
+                        <div class="genres">
+                            <ul>
+                                @each(genre in firstMovie.genres)
+                                    <li>{{genre.name}}</li>
+                                @endeach
+                            </ul>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="my-3">VALUTAZIONE: <span class="brand_text">{{firstMovie.rank}}</span></h6>
+                            <a href="movies/{{firstMovie.id}}" class="brand_text">GUARDA SCHEDA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endif
+        <hr>
+        {{--  sezione popolari  --}}
+        <section class="pop_films">
+            <h2 class="brand_text">film popolari</h2>
+            <div class="cards_container">
+                @each(movie in popMovies)
+                <div class="card_container">
+                    <a href="movies/{{movie.id}}">
+                        <div class="my_card">
+                            <h3>{{movie.title}}</h3>
+                            @if(movie.backdrop == null)
+                                <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+                            @else
+                                <img src="{{coverLink}}{{movie.backdrop}}" alt="cover movie">
+                            @end
+                        </div>
+                    </a>
+                </div>
+                @end
+            </div>
+                {{--  <p>{{movie.overview}}</p>  --}}
+        </section>
+        {{--  sezione in arrivo  --}}
+        <section class="on_films">
+            <h2>film in arrivo</h2>
+            @each(movie in upMovies)
+                <h3>{{movie.title}}</h3>
+                @if(movie.backdrop == null)
+                    <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+                @else
+                    <img src="{{coverLink}}{{movie.backdrop}}" alt="cover movie">
+                @end
+                {{--  <p>{{movie.overview}}</p>  --}}
+        @end
+        </section>
+        {{--  sezione meglio valutati  --}}
+        <h2>i meglio valutati di sempre</h2>
+        <section class="top_films">
+            @each(movie in topMovies)
+                <h3>{{movie.title}}</h3>
+                @if(movie.backdrop == null)
+                    <img src="https://t3.ftcdn.net/jpg/04/81/68/12/360_F_481681204_4GRyst6eZT2GGIIKhLnSNDp4z8lfNJ1J.jpg" alt="">
+                @else
+                    <img src="{{coverLink}}{{movie.backdrop}}" alt="cover movie">
+                @end
+                <p>{{movie.overview}}</p>
+        @end
+        </section>
+    </main>
+@endsection
+@section('footer')
+    @include('partials/footer')
+@endsection

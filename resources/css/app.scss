@@ -1,0 +1,302 @@
+@import 'variables';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+// @import "./fontawesome/scss/fontawesome.scss";
+
+//general
+body {
+  background-color: $dark-color;
+  color: white;
+  font-family: 'Outfit';
+  scrollbar-face-color: $brand-color;
+}
+//utility
+a {
+  color: white;
+  text-decoration: none !important;
+  &:hover {
+    color: white;
+  }
+}
+.title_font {
+  font-family: 'Staatliches';
+}
+.hr {
+  height: 2rem;
+  width: 100%;
+  background-color: $dark-green;
+}
+.hr_black {
+  background-color: $dark-color;
+  height: 1rem;
+  width: 100%;
+}
+.active {
+  color: $brand-color !important;
+  font-weight: 700 !important;
+}
+.btn {
+  background-color: $brand-color;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  &:hover {
+    background-color: $light-color;
+    transition: all ease-in-out 0.2s;
+    box-shadow: 1px 5px 7px 0px $brand-color;
+  }
+  &:hover a {
+    color: $dark-color;
+  }
+  a {
+    text-decoration: none;
+    color: $brand-color;
+    font-weight: bold;
+  }
+}
+.my_card {
+  text-align: center;
+  color: $light-color;
+  position: relative;
+  &:hover {
+    transform: translateY(-1rem);
+    transition: all ease-in-out 0.3s;
+    z-index: 20;
+  }
+  &:hover img {
+    filter: brightness(0.5);
+    box-shadow: 0px 3px 6px 0px #2ba84a75;
+  }
+  &:hover h3 {
+    display: block;
+  }
+  img {
+    width: 100% !important;
+    object-fit: cover;
+  }
+  h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-family: 'Outfit';
+    color: $light-color;
+    font-weight: 900;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0.4rem;
+    display: none;
+  }
+}
+#form {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 5rem auto;
+  form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    label {
+      margin: 0.6rem 0;
+      small {
+        display: block;
+      }
+    }
+    button {
+      margin-top: 1rem;
+    }
+  }
+}
+.fa-users {
+  color: white;
+  &:hover {
+    color: $brand-color;
+    cursor: pointer;
+  }
+}
+.background_brand {
+  background-color: $brand-color;
+}
+.brand_text {
+  color: $brand-color;
+}
+.btn_table{
+  background: none;
+  border: none;
+}
+// header
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background-image: linear-gradient(357deg, black, transparent);
+  #navbar {
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left a,
+    .right a {
+      text-decoration: none;
+      color: $light-color;
+      padding: 0 1rem;
+      font-weight: 300;
+      &:hover {
+        color: $brand-color;
+      }
+    }
+    .center .logo {
+      color: $brand-color;
+      font-weight: 900;
+    }
+  }
+}
+main {
+  margin-top: 5.5rem;
+}
+//homepage
+#homepage {
+  display: flex;
+  .left_container,
+  .right_container {
+    margin-top: 1rem;
+  }
+  .left_container {
+    width: 70%;
+    .film_vetrina {
+      position: relative;
+      img {
+        width: 100%;
+        filter: brightness(0.5);
+      }
+      .details {
+        position: absolute;
+        bottom: 0;
+        background-image: linear-gradient(1deg, $brand-color, transparent, transparent);
+        padding: 2rem;
+        width: 100%;
+        p {
+          max-height: 9rem;
+          overflow: auto;
+        }
+        .subdetails {
+          display: flex;
+          justify-content: space-between;
+          ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            li {
+              margin-right: 1rem;
+            }
+          }
+        }
+      }
+    }
+    .popoular_movie {
+      .cards_container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -0.3rem;
+        .card_container {
+          width: 25%;
+          padding: 0.3rem;
+        }
+      }
+    }
+  }
+  .right_container {
+    width: 30%;
+    padding: 0 2rem;
+    .series_container {
+      .popoular_serie {
+        .cards_container {
+          max-height: 78.5rem;
+          overflow: auto;
+          .card_serie {
+            margin-bottom: -3rem;
+          }
+        }
+      }
+    }
+  }
+}
+//movies
+#movies {
+  .film_vetrina {
+    .movie_on {
+      display: flex;
+      .image {
+        width: 70%;
+        img {
+          padding-right: 1rem;
+          width: 100%;
+        }
+      }
+      .description {
+        width: 30%;
+        .genres {
+          ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+  .pop_films {
+    .cards_container {
+      display: flex;
+      flex-wrap: wrap;
+      .card_container {
+        width: 20%;
+        padding: 0.3rem;
+      }
+    }
+  }
+}
+#admin {
+  #users-table {
+    color: white !important;
+    .odd{
+      background-color: $brand-color;
+    }
+  }
+}
+//provvisorioooooooooo
+#movies,
+#serie,
+#show_serie,
+#show_movie {
+  img {
+    width: 42rem;
+  }
+}
+footer {
+  margin-top: 3rem;
+  background-color: $brand-color;
+  color: $dark-color;
+  display: flex;
+  padding: 2rem;
+  div {
+    width: 25%;
+    ul {
+      list-style: none;
+      text-align: center;
+    }
+  }
+}
+
+//roota espone
+// controller user §
+// userservice
+// app/interfaces
+// abstracy
+
+// cahce
+// nodecache
+// passare jwt alla rotta
+
+// kernel is admin e gli passo il missleware
+// middleware isAdmin
