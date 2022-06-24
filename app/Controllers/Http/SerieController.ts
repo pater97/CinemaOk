@@ -38,7 +38,6 @@ export default class SerieController {
     const coverLink = 'https://image.tmdb.org/t/p/original/'
     //ricerco per id e rispondo con il film
     const Serie = await SeriesService.findById(params.id)
-    console.log(Serie)
     //film simili
     const similar = await SeriesService.similar(params.id)
     //estrapolo il video trailer

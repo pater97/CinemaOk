@@ -5,6 +5,7 @@ export default class extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
+      table.increments('id').primary()
       table.integer('user_id').notNullable()
       table.integer('movie_id').nullable()
       table.integer('serie_id').nullable()

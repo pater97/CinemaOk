@@ -30,7 +30,7 @@
 				{ title: 'Action', data: 'show', defaultValue: '', searchable: false, orderable: false, width: "10%", className: "text-center",
 				  render: (data, type, row) => {
 				    return `<div class="d-flex">
-              <a href="{{ route('favorites.index') }}/${row.id}" title="Show"><i class="fas fa-search-plus"></i></a>
+              <a href="favorites/${row.id}" title="Show"><i class="fas fa-search-plus"></i></a>
               <a class="text-white mx-3" href="/admin/edit/${row.id}"><i class="fa-solid fa-pen"></i></a>
                       <form action="{{ route('admin.delete') }}" method="post">
                         {{ csrfField() }}

@@ -48,6 +48,8 @@ Route.group(() => {
 }).prefix('/admin')
 
 //rotte favorites
-Route.get('/favorites', 'FavoriteController.index').as('favorites.index')
+Route.get('/favorites/:userId', 'FavoriteController.index').as('favorites.index')
 //aggiungere record
 Route.post('/favorites/add', 'FavoriteController.add').as('favorite.add')
+//eliminare record
+Route.post('/favorites/delete', 'FavoriteController.delete').as('favorite.delete')

@@ -134,6 +134,27 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .right{
+      .dropdown{
+        .dropdown-toggle{
+          background:none;
+          color: white;
+          border: none;
+          svg:hover{
+            color: $brand-color;
+          }
+        }
+        .dropdown-menu{
+          background-color: $brand-color;
+          color: white;
+          text-align: center;
+          li:hover{
+            background-color: $dark-color;
+            color: $brand-color;
+          }
+        }
+      }
+    }
     .left a,
     .right a {
       text-decoration: none;
@@ -213,7 +234,7 @@ main {
           max-height: 78.5rem;
           overflow: auto;
           .card_serie {
-            margin-bottom: -3rem;
+            padding: .5rem;
           }
         }
       }

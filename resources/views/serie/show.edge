@@ -28,7 +28,7 @@
             @endeach
         </ul>
         {{--  <video src="https://www.youtube.com/watch?v={{trailerKeys[0].key}}"></video>  --}}
-        @if(trailerKeys[0].key)
+        @if(trailerKeys.length > 0)
             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailerKeys[0].key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         
         @endif
@@ -46,6 +46,17 @@
             <h3>{{serie.name}}</h3>
             @endeach
         </div>
+        <hr>
+        <h2 class="text-center">AGGIUNGI AI PREFERITI</h2>
+        <form action="{{ route('favorite.add') }}" method="post">
+            {{ csrfField() }}
+          
+            <label for="serie_id">
+                <input type="hidden" name="serie_id" id="serie_id" value="{{Serie.id}}">
+            </label>
+          
+            <button type="submit" class="btn text-white">Aggiungi ai preferiti</button>
+        </form>
     </main>
 @endsection
 @section('footer')

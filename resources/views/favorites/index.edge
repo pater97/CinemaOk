@@ -1,8 +1,61 @@
 @layout('layouts/main')
 @set('title','FAVORITES - CINEMAOK')
 @section('content')
-<main id="favorites">
-
+<main id="favorites" class="container">
+    @if(!series.length  && !movies.length)
+        <h2 class="brand_text text-center">NON HAI ANCORA AGGIUNTO NULLA</h2>
+        <h6 class="text-muted text-center">dai un'occhiata!</h6>
+        <div class="d-flex justify-content-center my-4">
+            <a href="{{ route('movies.index') }}" class="btn mx-2">FILM</a>
+            <a href="{{ route('series.index') }}" class="btn mx-2">SERIE TV</a>
+        </div>
+    @endif
+    {{--  sezione movies  --}}
+    @if(movies.length > 0)
+    <section class="movies">
+        <h2 class="brand_text">
+            I TUOI FILM PREFERITI
+        </h2>
+        <div class="movies_container">
+            @each(movie in movies)
+              <img style="width:100%" src="{{coverLink}}{{movie.backdrop}}" alt="">
+              <h4>
+                {{movie.title}}
+              </h4>
+              <a class="btn" href="/movies/{{movie.id}}">GUARDA LA SCHEDA</a>
+              <form action="{{ route('favorite.delete') }}" method="post">
+                {{ csrfField() }}
+                <input type="hidden" name="creatorId" id="creatorId" value="{{user_id}}">
+                <input type="hidden" name="movieId" id="movieId" value="{{movie.id}}">
+                <button class="btn_table text-white" type="submit"><i class="fa-solid fa-trash"></i></button>
+             </form>
+            @endeach
+        </div>
+    </section>
+    @endif
+    {{--  sezione series  --}}
+    @if(series.length > 0)
+    <section class="movies">
+        <h2 class="brand_text">
+            LE TUE SERIE PREFERITE
+        </h2>
+        <div class="movies_container">
+            @each(serie in series)
+              <img style="width:100%" src="{{coverLink}}{{serie.backdrop}}" alt="">
+              <h4>
+                {{serie.name}}
+              </h4>
+              <a class="btn" href="/series/{{serie.id}}">GUARDA LA SCHEDA</a>
+              <form action="{{ route('favorite.delete') }}" method="post">
+                {{ csrfField() }}
+                <input type="hidden" name="creatorId" id="creatorId" value="{{user_id}}">
+                <input type="hidden" name="serieId" id="serieId" value="{{serie.id}}">
+                <button class="btn_table text-white" type="submit"><i class="fa-solid fa-trash"></i></button>
+             </form>
+            @endeach
+        </div>
+    </section>
+    @endif
 </main>
 @endsection
 @section('footer')
