@@ -3,6 +3,8 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 //importo il modello user
 import User from 'App/Models/User'
+//importo il mail
+import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class AuthController {
   //mostra pagina di registrazione
@@ -43,7 +45,14 @@ export default class AuthController {
 
     //lascio autenticato l'utente appena registrato
     await auth.login(user)
-
+    await Mail.send((message) => {
+      message
+        .from('cinemaok@cinema.com')
+        .to(user.email)
+        .subject('Welcome Onboard!')
+        .htmlView('emails/welcome', { name: user.username })
+    })
+    console.log('fatto')
     //rendirizzo alla home page
     return response.redirect('/')
   }
