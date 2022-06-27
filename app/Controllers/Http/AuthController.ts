@@ -5,6 +5,8 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 //importo il mail
 import Mail from '@ioc:Adonis/Addons/Mail'
+//importo il pacchetto di criptazione
+import crypto from 'crypto'
 
 export default class AuthController {
   //mostra pagina di registrazione
@@ -87,5 +89,75 @@ export default class AuthController {
 
     // vengo rindirizzato al login
     return response.redirect().toRoute('auth.login.show')
+  }
+
+  //mostro pagina dove inserire mail
+  public async getResetPassword({ view }: HttpContextContract) {
+    return view.render('auth/reset-password')
+  }
+
+  //logica di invio email e generazione del token
+  public async resetPassword({ request, response, session }: HttpContextContract) {
+    const email = await request.input('email')
+    const user = await User.findBy('email', email)
+    // const date = Date.now() + 3600000
+    if (user === null) {
+      session.flash('form', 'email non trovata, ritenta assicurandoti di inserire la giusta email')
+      return response.redirect().back()
+    }
+    crypto.randomBytes(32, (err, Buffer) => {
+      if (err) {
+        console.log(err)
+        return response.redirect().back()
+      }
+      const token = Buffer.toString('hex')
+      user.reset_token = token
+      // user.reset_token_expiration = date.toISOString()
+      user.save()
+      Mail.send((message) => {
+        message
+          .from('cinemaok@cinema.com')
+          .to(user.email)
+          .subject('resetta la password')
+          .htmlView('emails/reset-password', { name: user.username, token: token })
+      })
+    })
+    return response.redirect('/login')
+  }
+
+  //mostro il form per il reset della password
+  public async getFormReset({ view, params, session, response }: HttpContextContract) {
+    //estrapolo il token dal parametro
+    const token = await params.token
+    //cerco l'utente che ha lo stesso token e se lo trovo gli permetto di cambiare password
+    const confirmUSer = await User.findBy('reset_token', token)
+    if (!confirmUSer) {
+      session.flash('form', 'non sei abilitato a cambiare la password, reinserisci la tua email')
+      return response.redirect('/reset-password')
+    }
+    const userId = confirmUSer.id
+    return view.render('auth/new-password', { userId })
+  }
+
+  //posto la nuova password
+  public async postNewPassword({ request, session, response }: HttpContextContract) {
+    const id = request.input('userId')
+    const password = request.input('password')
+    const confirmPassword = request.input('passwordConfirm')
+    if (password !== confirmPassword) {
+      session.flash('form', 'le password non coincidono, assicurati di usare la giusta password')
+      return response.redirect().back()
+    }
+    const user = await User.findOrFail(id)
+    const userSchema = schema.create({
+      //valido
+      password: schema.string({}, [rules.minLength(8)]),
+    })
+    //eseguo la validazione
+    const validatePassword = await request.validate({ schema: userSchema })
+    user.password = validatePassword.password
+    user.save()
+    session.flash('form', 'password aggiornata')
+    return response.redirect('/login')
   }
 }

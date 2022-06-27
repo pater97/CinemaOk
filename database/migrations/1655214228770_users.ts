@@ -11,6 +11,8 @@ export default class extends BaseSchema {
       table.string('username', 255).notNullable()
       table.string('password', 255).notNullable()
       table.boolean('is_admin').defaultTo(false)
+      table.string('reset_token', 255).nullable
+      table.date('reset_token_expiration').nullable
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

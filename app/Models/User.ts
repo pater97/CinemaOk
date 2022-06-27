@@ -18,6 +18,12 @@ export default class User extends BaseModel {
   @column()
   public is_admin: boolean
 
+  @column()
+  public reset_token: string
+
+  @column()
+  public reset_token_expiration: Date
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -1,4 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route'
+import AuthController from 'App/Controllers/Http/AuthController'
 import FavoriteController from 'App/Controllers/Http/FavoriteController'
 // import SerieController from 'App/Controllers/Http/SerieController'
 // import MovieController from 'App/Controllers/Http/HomeController'
@@ -27,6 +28,14 @@ Route.get('login', 'AuthController.loginShow').as('auth.login.show')
 Route.post('login', 'AuthController.login').as('auth.login') // ++
 //logica di logout
 Route.get('logout', 'AuthController.logout').as('auth.logout') // ++
+//reset password get email form
+Route.get('reset-password', 'AuthController.getResetPassword').as('auth.getReset')
+//reset password post send email
+Route.post('post-reset', 'AuthController.resetPassword').as('auth.postReset')
+//reset password get form new password
+Route.get('reset-password/:token', 'AuthController.getFormReset').as('auth.getFormReset')
+//reset password post del form
+Route.post('post-new-password', 'AuthController.postNewPassword').as('auth.postNewPassword')
 
 //rotta datatables
 Route.post('users/data-table', 'UsersController.dataTables').as('users.dataTable')
