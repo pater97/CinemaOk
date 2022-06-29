@@ -23,6 +23,7 @@ export default class SocialAuthController {
     }
     //se tutto va a buon fine autentico l'utente
     const googleUser = await google.user()
+    // console.log(googleUser.token) -> jwt token
     //ricerco l'utente per email e se non lo trovo lo creo
     const user = await User.firstOrCreate(
       {

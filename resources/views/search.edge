@@ -4,13 +4,14 @@
     <main id="search" class="container">
         <h2 class="text-center brand_text">CERCA IL FILM O LA SERIE TV CHE VUOI</h2>
         <div class="searchbar">
-            <input id="search" type="text">
-            <i onclick="prova()" class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" name="searchInput">
+            <i id="searchIcon" onclick="getMovie()"  class="fa-solid fa-magnifying-glass"></i>
         </div>
 
     </main>
 @endsection
 @section('scripts')
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="js/search.js"></script>
 @endsection
 {{--  @section('footer')
