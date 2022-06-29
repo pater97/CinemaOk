@@ -27,7 +27,8 @@
     "@adonisjs/lucid",
     "@adonisjs/auth",
     "adonis5-jwt",
-    "@adonisjs/mail"
+    "@adonisjs/mail",
+    "@adonisjs/ally"
   ],
   "metaFiles": [
     {

@@ -1,51 +1,91 @@
 @layout('layouts/main')
 @set('title','MOVIE - CINEMAOK')
 @section('content')
-    <main class="show_film container" id="show_movie">
-        <img src="{{coverLink}}{{Movie.backdrop}}" alt="">
-        <h2>{{Movie.title}}</h2>
-        <p>{{Movie.overview}}</p>
-        <h6>{{Movie.rank}}</h6>
-        <ul>
-            @each(review in reviews)
-            <li>
-                <h6>{{review.author.name}}</h6>
-                <h6>{{review.created_at}}</h6>
-                <img src="{{coverLink}}{{review.author.avatar_path}}" alt="">
-                <p>{{review.content}}</p>
-            </li>
-            @endeach
-        </ul>
-        {{--  <video src="https://www.youtube.com/watch?v={{trailerKeys[0].key}}"></video>  --}}
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailerKeys[0].key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <ul>
-            @each(genres in Movie.genres)
-            <li>
-                    {{genres.name}}
-                </li>
-            @end
-        </ul>
-        <h6>{{Movie.date}}</h6>
-        <iframe src="{{Movie.homepage}}"></iframe>
-        <div class="similar">
-            <h2>film simili</h2>
-            @each(movie in similar)
-            <h3>{{movie.title}}</h3>
-            @endeach
+    <main class="show_film" id="show_movie">
+        {{--  copertina con descrizione  --}}
+        <div class="first_movie_container">
+            <img src="{{coverLink}}{{Movie.backdrop}}" alt="">
+            <div class="details">
+                <h2 class="brand_text">{{Movie.title}}</h2>
+                <p>{{Movie.overview}}</p>
+                <ul>
+                    @each(genres in Movie.genres)
+                    <li>
+                        {{genres.name}}
+                    </li>
+                    @end
+                </ul>
+                <h6>{{Movie.date}}</h6>
+            </div>
         </div>
-        {{--  form per aggiungere ai preferiti  --}}
-        <hr>
-        <h2 class="text-center">AGGIUNGI AI PREFERITI</h2>
-        <form action="{{ route('favorite.add') }}" method="post">
-            {{ csrfField() }}
-          
-            <label for="movie_id">
-                <input type="hidden" name="movie_id" id="movie_id" value="{{Movie.id}}">
-            </label>
-          
-            <button type="submit" class="btn text-white">Aggiungi ai preferiti</button>
-        </form>
-        
+        <section class="container valutazione">
+            {{--  valutazione  --}}
+            <div class="rank">
+                <h2>LA VALUTAZIONE DEI NOSTRI UTENTI</h2>
+                <h6>{{Movie.rank}}</h6>
+            </div>
+            {{--  recensioni  --}}
+            <div class="reviews">
+                <ul>
+                    @each(review in reviews)
+                    <li>
+                        <div class="autore">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/User_with_smile.svg/1200px-User_with_smile.svg.png" alt="">
+                            <div class="name_date">
+                                <h5 class="brand_text">{{review.author.name}}</h5>
+                                <h6 class="text-muted">{{review.created_at}}</h6>
+                            </div>
+                        </div>
+                        <p>{{review.content}}</p>
+                    </li>
+                    @endeach
+                </ul>
+            </div>
+        </section>
+            @if(trailerKeys.length > 0)
+            {{--  //approfondimento video E FILM SIMILI --}}
+            <div class="trailer">
+                <h2>
+                    GUARDA IL TRAILER
+                </h2>
+                    <iframe class="trailer_yt" src="https://www.youtube.com/embed/{{trailerKeys[0].key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                @endif
+            </div>
+            <hr>
+            @if(Movie.homepage)
+            {{--  anteprima del sito  --}}
+            <div class="premiere container">
+                <h2 class="text-center my-5">SCOPRI ALTRO DAL SITO UFFICIALE</h2>
+                <iframe width="100%" src="{{Movie.homepage}}"></iframe>
+            </div>
+            @endif
+            {{--  film simili  --}}
+            <div class="similar container">
+                <h2 class="band_text my-3">FILM CHE POTREBBERO INTERESSARTI IN BASE A <br> <span class="brand_text">{{Movie.title.toUpperCase()}}</span></h2>
+                <div class="film_container">
+                    @each(movie in similar)
+                    <a href="/movies/{{movie.id}}">
+                        <img src="{{coverLink}}{{movie.backdrop}}" alt="">
+                        <h3>{{movie.title}}</h3>
+                    </a>
+                    @endeach
+                </div>
+            </div>
+            {{--  form per aggiungere ai preferiti  --}}
+            @if(auth.user)
+            <div class="favorites  d-flex flex-column align-items-center">
+                <h2 class="text-center my-2">AGGIUNGI AI PREFERITI</h2>
+                <form action="{{ route('favorite.add') }}" method="post">
+                    {{ csrfField() }}
+                    
+                    <label for="movie_id">
+                        <input type="hidden" name="movie_id" id="movie_id" value="{{Movie.id}}">
+                    </label>
+                    
+                    <button type="submit" class="btn">Aggiungi ai preferiti</button>
+                </form>
+            </div>
+            @endif        
     </main>
     @endsection
     @section('footer')

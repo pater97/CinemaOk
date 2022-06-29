@@ -24,6 +24,12 @@ export default class User extends BaseModel {
   @column()
   public reset_token_expiration: Date
 
+  @column()
+  public accessToken: Date
+
+  @column()
+  public isVerified: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

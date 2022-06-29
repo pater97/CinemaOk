@@ -1,0 +1,18 @@
+@layout('layouts/main')
+@set('title','CERCA - CINEMAOK')
+@section('content')
+    <main id="search" class="container">
+        <h2 class="text-center brand_text">CERCA IL FILM O LA SERIE TV CHE VUOI</h2>
+        <div class="searchbar">
+            <input id="search" type="text">
+            <i onclick="prova()" class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+    </main>
+@endsection
+@section('scripts')
+  <script src="js/search.js"></script>
+@endsection
+{{--  @section('footer')
+    @include('partials/footer')
+@endsection  --}}

@@ -7,7 +7,13 @@ body {
   background-color: $dark-color;
   color: white;
   font-family: 'Outfit';
-  scrollbar-face-color: $brand-color;
+  ::-webkit-scrollbar{
+    width: 2px;
+    background: none;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: $brand-color;
+  }
 }
 //utility
 a {
@@ -51,6 +57,9 @@ a {
     color: $brand-color;
     font-weight: bold;
   }
+}
+.side_card:hover{
+  transform: none!important;
 }
 .my_card {
   text-align: center;
@@ -171,6 +180,9 @@ header {
     .center .logo {
       color: $brand-color;
       font-weight: 900;
+      svg{
+        margin-right: .1rem;
+      }
     }
   }
 }
@@ -200,7 +212,7 @@ main {
         width: 100%;
         p {
           max-height: 9rem;
-          overflow: auto;
+          overflow: scroll;
         }
         .subdetails {
           display: flex;
@@ -285,6 +297,148 @@ main {
     color: white !important;
     .odd {
       background-color: $brand-color;
+    }
+  }
+}
+#show_movie{
+  .first_movie_container{
+    position: relative;
+    top: 0;
+    margin-top: -5.5rem;
+    margin-bottom: 4rem;
+    img{
+      width: 100%;
+      filter: brightness(0.8);
+    }
+    .details{
+      filter: drop-shadow(2px 4px 6px black);
+      position: absolute;
+      bottom: 5%;
+      width: 50%;
+      padding-left: 2rem;
+      ul{
+        display: flex;
+        list-style: none;
+        padding: 0;
+        li{
+          margin-right: .5rem;
+        }
+      }
+    }
+  }
+  .trailer{
+    h2{
+      font-size: 3rem;
+      color: $dark-color;
+      text-align: center;
+      letter-spacing: 2rem;
+      background-color: $brand-color;
+      padding: .5rem 0;
+    }
+    .trailer_yt{
+      width: 100%;
+      height: 40rem;
+      margin: 1rem 0;
+    }
+  }
+  .reviews{
+    margin: 3rem 0;
+    ul{
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      li{
+        width: 25%;
+        padding: 0 0.5rem;
+        max-height: 15rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin: 2rem 0;
+        .autore{
+          display: flex;
+          align-items: center;
+          margin-bottom: 1rem;
+          img{
+            margin-right: .5rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+          }
+          .name_date{
+            h6{
+              font-size: .7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .rank{
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2{
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h6{
+      font-size: 7rem;
+      background-color: green;
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 7rem;
+      &:hover{
+        box-shadow: 0px 0px 20px 5px $brand-color;
+        transition: all .4s ease-out;
+        cursor: none;
+      }
+    }
+  }
+  .similar{
+    margin-bottom: 6rem;
+    margin-top: 3rem;
+    h2{
+      text-align: center;
+    }
+    .film_container{
+      position: relative;
+      display: flex;
+      a{
+        width: calc(100%/20);
+        height: 10rem;
+        object-fit: cover;
+        &:hover{
+          transform: scale(120%);
+          border-radius: 5px;
+          width: 8rem;
+          transition: all .1s ease-in-out;
+        }
+        &:hover h3{
+          display: block;
+          position: absolute;
+          font-size: .8rem;
+          width: 10rem;
+        }
+        h3{
+          display: none;
+        }
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  .premiere{
+    iframe{
+      height: 35rem;
     }
   }
 }

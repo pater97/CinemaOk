@@ -1,6 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 import AuthController from 'App/Controllers/Http/AuthController'
 import FavoriteController from 'App/Controllers/Http/FavoriteController'
+import SocialAuthController from 'App/Controllers/Http/SocialAuthController'
 // import SerieController from 'App/Controllers/Http/SerieController'
 // import MovieController from 'App/Controllers/Http/HomeController'
 
@@ -16,6 +17,9 @@ Route.get('movies/:id', 'MovieController.show').as('movies.show')
 Route.get('series', 'SerieController.index').as('series.index')
 //rotta show delle serie
 Route.get('series/:id', 'SerieController.show').as('series.show')
+
+//rotta per il search
+Route.get('search', 'SearchController.index').as('search.index')
 
 //rotte auth
 //mostro form di registrazione
@@ -36,6 +40,12 @@ Route.post('post-reset', 'AuthController.resetPassword').as('auth.postReset')
 Route.get('reset-password/:token', 'AuthController.getFormReset').as('auth.getFormReset')
 //reset password post del form
 Route.post('post-new-password', 'AuthController.postNewPassword').as('auth.postNewPassword')
+
+//rotte social auth
+//manda al account google pop up
+Route.get('/google/redirect', 'SocialAuthController.redirect').as('google.auth.redirect')
+//callback di google
+Route.get('/callback/google', 'SocialAuthController.callback').as('google.auth.callback')
 
 //rotta datatables
 Route.post('users/data-table', 'UsersController.dataTables').as('users.dataTable')

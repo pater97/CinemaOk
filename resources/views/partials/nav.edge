@@ -8,6 +8,7 @@
         </h3>
       </div>
       <div class="left">
+        <a class="{{active === 'search' ? 'active' : ''}}" href="{{ route('search.index') }}"><i class="fa-solid fa-magnifying-glass"></i></a>
         <a class="{{active === 'home' ? 'active' : ''}}" href="{{ route('home') }}">HOME</a>
         <a class="{{active === 'movies' ? 'active' : ''}}" href="{{ route('movies.index') }}">MOVIE</a>
         <a class="{{active === 'series' ? 'active' : ''}}" href="{{ route('series.index') }}">SERIES</a>
@@ -19,6 +20,7 @@
         @if (!auth.user)
           <a href="{{ route('auth.register') }}">REGISTER</a>
           <a href="{{ route('auth.login') }}">LOGIN</a>
+          <a href="{{ route('google.auth.redirect') }}"><i class="fa-brands fa-google"></i></a>
         @else
         <div class="dropdown">
           <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">

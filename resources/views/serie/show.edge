@@ -18,11 +18,7 @@
             <li>
                 <h6>{{review.author.username}}</h6>
                 <h6>{{review.created_at}}</h6>
-                @if(review.author.avatar_path)
-                    <img src="{{coverLink}}{{review.author.avatar_path}}" alt="">
-                @else
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/User_with_smile.svg/1200px-User_with_smile.svg.png" alt="">
-                @end
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/User_with_smile.svg/1200px-User_with_smile.svg.png" alt="">
                 <p>{{review.content}}</p>
             </li>
             @endeach
@@ -47,16 +43,18 @@
             @endeach
         </div>
         <hr>
+        @if(auth.user)
         <h2 class="text-center">AGGIUNGI AI PREFERITI</h2>
         <form action="{{ route('favorite.add') }}" method="post">
             {{ csrfField() }}
-          
+            
             <label for="serie_id">
                 <input type="hidden" name="serie_id" id="serie_id" value="{{Serie.id}}">
             </label>
-          
+            
             <button type="submit" class="btn text-white">Aggiungi ai preferiti</button>
         </form>
+        @endif
     </main>
 @endsection
 @section('footer')

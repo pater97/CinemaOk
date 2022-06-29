@@ -68,7 +68,7 @@ export default class FavoriteController {
     const serie_id = await request.input('serie_id')
     //gestisco la condizione per vedere se sto aggiungendo una serie o un film e se sono già presenti
     if (serie_id === undefined) {
-      if (await Favorite.findBy('movie_id', movie_id)) {
+      if (await Favorite.findBy('movie_id', movie_id, 'user_id', auth.user?.id)) {
         return response.redirect(`/favorites/${auth.user?.id}`)
       }
       const favorites = {
@@ -78,7 +78,7 @@ export default class FavoriteController {
       //creo il nuovo record
       await Favorite.create(favorites)
     } else {
-      if (await Favorite.findBy('serie_id', serie_id)) {
+      if (await Favorite.findBy('serie_id', serie_id, 'user_id', auth.user?.id)) {
         return response.redirect(`/favorites/${auth.user?.id}`)
       }
       const favorites = {
