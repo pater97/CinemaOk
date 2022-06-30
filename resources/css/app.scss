@@ -256,6 +256,10 @@ main {
     }
   }
 }
+//search
+#search{
+  
+}
 //movies
 #movies {
   .film_vetrina {
@@ -292,14 +296,7 @@ main {
     }
   }
 }
-#admin {
-  #users-table {
-    color: white !important;
-    .odd {
-      background-color: $brand-color;
-    }
-  }
-}
+//mostra movie
 #show_movie{
   .first_movie_container{
     position: relative;
@@ -442,11 +439,18 @@ main {
     }
   }
 }
+//admin
+#admin {
+  #users-table {
+    color: white !important;
+    .odd {
+      background-color: $brand-color;
+    }
+  }
+}
 //provvisorioooooooooo
-#movies,
 #serie,
-#show_serie,
-#show_movie {
+#show_serie {
   img {
     width: 42rem;
   }
