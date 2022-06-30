@@ -4,6 +4,10 @@
     <main id="search" class="container">
         <h2 class="text-center brand_text">CERCA IL FILM O LA SERIE TV CHE VUOI</h2>
         <div class="searchbar">
+            <select name="type" id="type">
+                <option value="movie">FILM</option>
+                <option value="tv">SERIE TV</option>
+            </select>
             <input type="text" id="searchInput" name="searchInput">
             <i id="searchIcon" onclick="getMovie()"  class="fa-solid fa-magnifying-glass"></i>
         </div>
