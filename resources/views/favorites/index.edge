@@ -12,60 +12,63 @@
     @endif
     {{--  sezione movies  --}}
     @if(movies.length > 0)
-    <section class="movies">
-        <h2 class="brand_text">
-            I TUOI FILM PREFERITI
-        </h2>
-        <div class="movies_container">
-            @each(movie in movies)
-            <div class="movie">
-                <img style="width:100%" src="{{coverLink}}{{movie.backdrop}}" alt="">
-                <div class="details">
-                    <h4>
-                        {{movie.title.toUpperCase()}}
-                    </h4>
-                    <div class="action">
-                        <a class="brand_text" href="/movies/{{movie.id}}"><i class="fa-solid fa-eye"></i></a>
-                        <form action="{{ route('favorite.delete') }}" method="post">
-                            {{ csrfField() }}
-                            <input type="hidden" name="creatorId" id="creatorId" value="{{user_id}}">
-                            <input type="hidden" name="movieId" id="movieId" value="{{movie.id}}">
-                            <button class="btn_table brand_text" type="submit"><i class="fa-solid fa-trash"></i></button>
-                       </form>
+    <section class="principal_container">
+
+        <section class="movies left">
+            <h2 class="brand_text">
+                I TUOI FILM PREFERITI
+            </h2>
+            <div class="movies_container">
+                @each(movie in movies)
+                <div class="movie">
+                    <img style="width:100%" src="{{coverLink}}{{movie.backdrop}}" alt="">
+                    <div class="details">
+                        <h4>
+                            {{movie.title.toUpperCase()}}
+                        </h4>
+                        <div class="action">
+                            <a class="brand_text" href="/movies/{{movie.id}}"><i class="fa-solid fa-eye"></i></a>
+                            <form action="{{ route('favorite.delete') }}" method="post">
+                                {{ csrfField() }}
+                                <input type="hidden" name="creatorId" id="creatorId" value="{{user_id}}">
+                                <input type="hidden" name="movieId" id="movieId" value="{{movie.id}}">
+                                <button class="btn_table brand_text" type="submit"><i class="fa-solid fa-trash"></i></button>
+                           </form>
+                        </div>
                     </div>
                 </div>
+                @endeach
             </div>
-            @endeach
-        </div>
-    </section>
-    @endif
-    {{--  sezione series  --}}
-    @if(series.length > 0)
-    <section class="movies">
-        <h2 class="brand_text">
-            LE TUE SERIE PREFERITE
-        </h2>
-        <div class="movies_container">
-            @each(serie in series)
-            <div class="movie">
-                <img style="width:100%" src="{{coverLink}}{{serie.backdrop}}" alt="">
-                <div class="details">
-                    <h4>
-                      {{serie.name.toUpperCase()}}
-                    </h4>
-                    <div class="action">
-                        <a class="brand_text" href="/series/{{serie.id}}"><i class="fa-solid fa-eye"></i></a>
-                        <form action="{{ route('favorite.delete') }}" method="post">
-                          {{ csrfField() }}
-                          <input type="hidden" name="creatorId" id="creatorId" value="{{user_id}}">
-                          <input type="hidden" name="serieId" id="serieId" value="{{serie.id}}">
-                          <button class="btn_table brand_text" type="submit"><i class="fa-solid fa-trash"></i></button>
-                       </form>
+        </section>
+        @endif
+        {{--  sezione series  --}}
+        @if(series.length > 0)
+        <section class="movies right">
+            <h2 class="brand_text">
+                LE TUE SERIE PREFERITE
+            </h2>
+            <div class="movies_container">
+                @each(serie in series)
+                <div class="movie ">
+                    <img style="width:100%" src="{{coverLink}}{{serie.backdrop}}" alt="">
+                    <div class="details">
+                        <h4>
+                          {{serie.name.toUpperCase()}}
+                        </h4>
+                        <div class="action">
+                            <a class="brand_text" href="/series/{{serie.id}}"><i class="fa-solid fa-eye"></i></a>
+                            <form action="{{ route('favorite.delete') }}" method="post">
+                              {{ csrfField() }}
+                              <input type="hidden" name="creatorId" id="creatorId" value="{{user_id}}">
+                              <input type="hidden" name="serieId" id="serieId" value="{{serie.id}}">
+                              <button class="btn_table brand_text" type="submit"><i class="fa-solid fa-trash"></i></button>
+                           </form>
+                        </div>
                     </div>
                 </div>
+                @endeach
             </div>
-            @endeach
-        </div>
+        </section>
     </section>
     @endif
 </main>
