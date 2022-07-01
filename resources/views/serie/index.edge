@@ -1,45 +1,85 @@
 @layout('layouts/main')
 @set('title','SERIES - CINEMAOK')
 @section('content')
-    <main id="serie">
-        <section class="vetrina">
-            <img src="{{coverLink}}{{firstSerie.backdrop}}" alt="">
-            <h2>
-                Seire tv consigliata
+    <main id="series">
+        {{--  serie vetrina  --}}
+        @if(firstSerie.backdrop !== null)
+        <section class="vetrina container my-5">
+            <h2 class="brand_text">
+                SERIE TV CONSIGLIATA
             </h2>
-            <h3>{{firstSerie.name}}</h3>
-            <p>{{firstSerie.overview}}</p>
-            <h6>{{firstSerie.rank}}</h6>
-            <a href="/series/{{firstSerie.id}}">GUARDA LA SCHEDA COMPLETA</a>
-        </section>
-        <section class="on_air container">
-            <h2>Serie tv in onda</h2>
-            <div class="serie_container">
-                @each(serie in onAir)
-                <img src="{{coverLink}}{{serie.backdrop}}" alt="">
-                <h3>{{serie.name}}</h3>
-                <a href="/series/{{serie.id}}">guarda di più</a>
-                @endeach
+            <hr>
+            <div class="serie_vetrina">
+                <div class="image">
+                    <img src="{{coverLink}}{{firstSerie.backdrop}}" alt="">
+                </div>
+                <div class="description">
+                    <h3>{{firstSerie.name.toUpperCase()}}</h3>
+                    <p>{{firstSerie.overview}}</p>
+                    <div class="subdetails d-flex justify-content-between align-items-center">
+                        <h6 class="my-5">VALUTAZIONE: <span class="brand_text">{{firstSerie.rank}}</span></h6>
+                        <a href="/series/{{firstSerie.id}}" class="brand_text">GUARDA LA SCHEDA</a>
+                    </div>
+                </div>
             </div>
         </section>
-        <section class="top container">
-            <h2>Serie tv meglio valutate</h2>
-            <div class="serie_container">
-                @each(serie in top)
-                <img src="{{coverLink}}{{serie.backdrop}}" alt="">
-                <h3>{{serie.name}}</h3>
-                <h3>{{serie.rank}}</h3>
-                <a href="/series/{{serie.id}}">guarda di più</a>
-                @endeach
-            </div>
-        </section>
-        <section class="pop container">
-            <h2>Serie tv popolari</h2>
-            <div class="serie_container">
+        @endif
+        {{--  serie tv popolari  --}}
+        <section class="pop container my-5">
+            <h2 class="brand_text">SERIE TV POPOLARI</h2>
+            <div class="cards_container">
                 @each(serie in pop)
-                <img src="{{coverLink}}{{serie.backdrop}}" alt="">
-                <h3>{{serie.name}}</h3>
-                <a href="/series/{{serie.id}}">guarda di più</a>
+                <div class="card_container">
+                    <a href="/series/{{serie.id}}">
+                        <div class="my_card">
+                            <h3>{{serie.name}}</h3>
+                            @if(serie.backdrop == null)
+                                <img src="https://a.allegroimg.com/original/12fb2d/ea8d6b584c9f9a53927c742f8d08" alt="">
+                            @else
+                                <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+                            @endif
+                        </div>
+                    </a>
+                </div>
+                @endeach
+            </div>
+        </section>
+        {{--  serie tv in onda  --}}
+        <section class="on_air container my-5">
+            <h2 class="brand_text">SERIE TV IN ONDA</h2>
+            <div class="cards_container">
+                @each(serie in onAir)
+                <div class="card_container">
+                    <a href="/series/{{serie.id}}">
+                        <div class="my_card">
+                            <h3>{{serie.name}}</h3>
+                            @if(serie.backdrop == null)
+                                <img src="https://a.allegroimg.com/original/12fb2d/ea8d6b584c9f9a53927c742f8d08" alt="">
+                            @else
+                            <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+                            @endif
+                        </div>
+                    </a>
+                </div>
+                @endeach
+            </div>
+        </section>
+        {{--  serie tv meglio valutate  --}}
+        <section class="top container my-5">
+            <h2 class="brand_text">SERIE TV MEGLIO VALUTATE</h2>
+            <div class="cards_container">
+                @each(serie in top)
+                <div class="card_container">
+                    <a href="/series/{{serie.id}}">
+                            @if(serie.backdrop == null)
+                                <img src="https://a.allegroimg.com/original/12fb2d/ea8d6b584c9f9a53927c742f8d08" alt="">
+                            @else
+                                <img src="{{coverLink}}{{serie.backdrop}}" alt="">
+                            @endif
+                            <h3>{{serie.name}}</h3>
+                            <h6>{{serie.rank}}</h6>
+                    </a>
+                </div>
                 @endeach
             </div>
         </section>
