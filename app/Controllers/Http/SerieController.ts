@@ -13,6 +13,7 @@ export default class SerieController {
     const onAir = await SeriesService.onAir()
     const top = await SeriesService.top()
     const pop = await SeriesService.popular()
+    const theBoys = await SeriesService.findById(76479)
     //creo funzione per ricevere un film randomico da mostrare in prima pagina
     //definisco l'array nel quale andranno ad inserirsi i film
     let id_array: Array<string> = []
@@ -28,7 +29,15 @@ export default class SerieController {
     //ottengo il film
     const firstSerie = await SeriesService.findById(+id_random)
     // console.log(firstMovie)
-    return await view.render('serie/index', { active, coverLink, onAir, top, pop, firstSerie })
+    return await view.render('serie/index', {
+      active,
+      coverLink,
+      onAir,
+      top,
+      pop,
+      firstSerie,
+      theBoys,
+    })
   }
 
   public async show({ view, params }: HttpContextContract) {

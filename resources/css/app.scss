@@ -572,12 +572,43 @@ main {
   .season{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     .season_container{
       width: calc(100%/4);
+      padding: .3rem;
       img{
         width: 100%;
       }
     }
+  }
+}
+#favorites{
+  .movies{
+    h2{
+      text-align: center;
+      margin: 2rem 0;
+    }
+      .movies_container{
+        display: flex;
+        justify-content: center;
+        .movie{
+          padding: .5rem;
+          width: 50%;
+          img{
+            width:100%;
+            box-shadow: 0px 0px 10px 0px $brand-color;
+            border-radius: 10px;
+          }
+          .details{
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            .action{
+              display: flex;
+            }
+          }
+        }
+      }
   }
 }
 //admin
@@ -587,13 +618,6 @@ main {
     .odd {
       background-color: $brand-color;
     }
-  }
-}
-//provvisorioooooooooo
-#serie,
-#show_serie {
-  img {
-    width: 42rem;
   }
 }
 footer {
@@ -611,15 +635,4 @@ footer {
   }
 }
 
-//roota espone
-// controller user §
-// userservice
-// app/interfaces
-// abstracy
 
-// cahce
-// nodecache
-// passare jwt alla rotta
-
-// kernel is admin e gli passo il missleware
-// middleware isAdmin

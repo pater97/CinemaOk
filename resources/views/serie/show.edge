@@ -27,6 +27,9 @@
         </section>
         <div class="separatore_piccolo"></div>
         {{--  stagioni  --}}
+        <h4 class="my-3 text-center brand_text">
+            TUTTE LE STAGIONI
+        </h4>
         <div class="season container">
             @each(s in Serie.seasons)
             <div class="season_container text-center">
@@ -75,26 +78,28 @@
             <h2 class="band_text my-3">SERIE CHE POTREBBERO INTERESSARTI IN BASE A <br> <span class="brand_text">{{Serie.name.toUpperCase()}}</span></h2>
             <div class="film_container">
                 @each(serie in similar)
-                <a href="/serie/{{serie.id}}">
+                <a href="/series/{{serie.id}}">
                     <img src="{{coverLink}}{{serie.backdrop}}" alt="">
                     <h3>{{serie.name}}</h3>
                 </a>
                 @endeach
             </div>
         </div>
-        {{--  form per aggiungere ai preferiti  --}}
-        @if(auth.user)
-        <h2 class="text-center">AGGIUNGI AI PREFERITI</h2>
-        <form action="{{ route('favorite.add') }}" method="post">
-            {{ csrfField() }}
-            
-            <label for="serie_id">
-                <input type="hidden" name="serie_id" id="serie_id" value="{{Serie.id}}">
-            </label>
-            
-            <button type="submit" class="btn text-white">Aggiungi ai preferiti</button>
-        </form>
-        @endif
+        <div class="favorites  d-flex flex-column align-items-center">
+            {{--  form per aggiungere ai preferiti  --}}
+            @if(auth.user)
+            <h2 class="text-center">AGGIUNGI AI PREFERITI</h2>
+            <form action="{{ route('favorite.add') }}" method="post">
+                {{ csrfField() }}
+                
+                <label for="serie_id">
+                    <input type="hidden" name="serie_id" id="serie_id" value="{{Serie.id}}">
+                </label>
+                
+                <button type="submit" class="btn">Aggiungi ai preferiti</button>
+            </form>
+            @endif
+        </div>
     </main>
 @endsection
 @section('footer')

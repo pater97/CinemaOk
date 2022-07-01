@@ -23,6 +23,26 @@
                 </div>
             </div>
         </section>
+        @else
+        <section class="vetrina container my-5">
+            <h2 class="brand_text">
+                SERIE TV CONSIGLIATA
+            </h2>
+            <hr>
+            <div class="serie_vetrina">
+                <div class="image">
+                    <img src="{{coverLink}}{{theBoys.backdrop}}" alt="">
+                </div>
+                <div class="description">
+                    <h3>{{theBoys.name.toUpperCase()}}</h3>
+                    <p>{{theBoys.overview}}</p>
+                    <div class="subdetails d-flex justify-content-between align-items-center">
+                        <h6 class="my-5">VALUTAZIONE: <span class="brand_text">{{theBoys.rank}}</span></h6>
+                        <a href="/series/{{theBoys.id}}" class="brand_text">GUARDA LA SCHEDA</a>
+                    </div>
+                </div>
+            </div>
+        </section>
         @endif
         {{--  serie tv popolari  --}}
         <section class="pop container my-5">
