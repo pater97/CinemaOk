@@ -10,7 +10,7 @@
       <div class="left">
         <a class="{{active === 'search' ? 'active' : ''}}" href="{{ route('search.index') }}"><i class="fa-solid fa-magnifying-glass"></i></a>
         <a class="{{active === 'home' ? 'active' : ''}}" href="{{ route('home') }}">HOME</a>
-        <a class="{{active === 'movies' ? 'active' : ''}}" href="{{ route('movies.index') }}">MOVIE</a>
+        <a class="{{active === 'movies' ? 'active' : ''}}" href="{{ route('movies.index') }}">MOVIES</a>
         <a class="{{active === 'series' ? 'active' : ''}}" href="{{ route('series.index') }}">SERIES</a>
         @if(auth.user)
           <a class="{{active === 'favorites' ? 'active' : ''}}" href="/favorites/{{auth.user.id}}">FAVORITES</a>

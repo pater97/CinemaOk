@@ -7,6 +7,7 @@ import User from 'App/Models/User'
 import Mail from '@ioc:Adonis/Addons/Mail'
 //importo il pacchetto di criptazione
 import crypto from 'crypto'
+import { DateTime } from 'luxon'
 
 export default class AuthController {
   //mostra pagina di registrazione
@@ -51,7 +52,7 @@ export default class AuthController {
       message
         .from('cinemaok@cinema.com')
         .to(user.email)
-        .subject('Welcome Onboard!')
+        .subject('Benvenuto su cinema ok!')
         .htmlView('emails/welcome', { name: user.username })
     })
     console.log('fatto')
@@ -100,7 +101,7 @@ export default class AuthController {
   public async resetPassword({ request, response, session }: HttpContextContract) {
     const email = await request.input('email')
     const user = await User.findBy('email', email)
-    // const date = Date.now() + 3600000
+    const date = DateTime.now().plus({ hours: 1 })
     if (user === null) {
       session.flash('form', 'email non trovata, ritenta assicurandoti di inserire la giusta email')
       return response.redirect().back()
@@ -112,7 +113,7 @@ export default class AuthController {
       }
       const token = Buffer.toString('hex')
       user.reset_token = token
-      // user.reset_token_expiration = date.toISOString()
+      user.reset_token_expiration = date
       user.save()
       Mail.send((message) => {
         message

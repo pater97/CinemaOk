@@ -22,7 +22,7 @@ export default class User extends BaseModel {
   public reset_token: string
 
   @column()
-  public reset_token_expiration: Date
+  public reset_token_expiration: DateTime
 
   @column()
   public accessToken: Date

@@ -7,21 +7,21 @@ body {
   background-color: $dark-color;
   color: white;
   font-family: 'Outfit';
-  ::-webkit-scrollbar{
+  ::-webkit-scrollbar {
     width: 2px;
     height: 2px;
     background: none;
   }
-  ::-webkit-scrollbar-thumb{
+  ::-webkit-scrollbar-thumb {
     background-color: $brand-color;
   }
 }
 //utility
-.separatore_piccolo{
-    height: 5px;
-    background-color: $brand-color;
-    width: 19rem;
-    margin: 3rem auto;
+.separatore_piccolo {
+  height: 5px;
+  background-color: $brand-color;
+  width: 19rem;
+  margin: 3rem auto;
 }
 a {
   color: white;
@@ -65,8 +65,8 @@ a {
     font-weight: bold;
   }
 }
-.side_card:hover{
-  transform: none!important;
+.side_card:hover {
+  transform: none !important;
 }
 .my_card {
   text-align: center;
@@ -102,7 +102,7 @@ a {
   }
 }
 #form {
-  a:hover{
+  a:hover {
     color: $brand-color;
   }
   display: flex;
@@ -153,21 +153,21 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .right{
-      .dropdown{
-        .dropdown-toggle{
-          background:none;
+    .right {
+      .dropdown {
+        .dropdown-toggle {
+          background: none;
           color: white;
           border: none;
-          svg:hover{
+          svg:hover {
             color: $brand-color;
           }
         }
-        .dropdown-menu{
+        .dropdown-menu {
           background-color: $brand-color;
           color: white;
           text-align: center;
-          li:hover{
+          li:hover {
             background-color: $dark-color;
             color: $brand-color;
           }
@@ -187,8 +187,8 @@ header {
     .center .logo {
       color: $brand-color;
       font-weight: 900;
-      svg{
-        margin-right: .1rem;
+      svg {
+        margin-right: 0.1rem;
       }
     }
   }
@@ -256,7 +256,7 @@ main {
           max-height: 78.5rem;
           overflow: auto;
           .card_serie {
-            padding: .5rem;
+            padding: 0.5rem;
           }
         }
       }
@@ -264,66 +264,66 @@ main {
   }
 }
 //search
-#search{
-  .searchbar{
+#search {
+  .searchbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    #type{
+    #type {
       background: none;
       border: none;
       color: $brand-color;
       font-weight: 900;
-      &:focus-visible{
+      &:focus-visible {
         outline: none;
       }
-      option{
+      option {
         background-color: $dark-color;
       }
     }
-    input{
+    input {
       margin: 1rem;
       color: white;
       border: none;
-      background:none;
+      background: none;
       border-bottom: 2px solid white;
-      &:focus-visible{
+      &:focus-visible {
         outline: none;
       }
     }
-    svg:hover{
+    svg:hover {
       cursor: pointer;
       transform: scale(115%);
       color: $brand-color;
-      transition: .1s all ease;
+      transition: 0.1s all ease;
     }
   }
-  #results{
+  #results {
     display: flex;
     flex-wrap: wrap;
-    .card_container{
+    .card_container {
       margin: 1rem 0;
-      width: calc(100%/5);
-      .card_content{
+      width: calc(100% / 5);
+      .card_content {
         height: 100%;
         position: relative;
-        padding: .5rem;
-        &:hover h2{
+        padding: 0.5rem;
+        &:hover h2 {
           display: block;
         }
-        &:hover img{
-          filter: blur(1px) brightness(.5);
+        &:hover img {
+          filter: blur(1px) brightness(0.5);
           transform: scale(105%);
-          transition: all .1s ease-in-out;
+          transition: all 0.1s ease-in-out;
           box-shadow: 0px 0px 9px 0px #2ba84a;
         }
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center;
         }
-        h2{
+        h2 {
           display: none;
           position: absolute;
           bottom: 10%;
@@ -335,9 +335,12 @@ main {
   }
 }
 //movies
-#movies, #series {
-  .film_vetrina, .vetrina {
-    .movie_on, .serie_vetrina {
+#movies,
+#series {
+  .film_vetrina,
+  .vetrina {
+    .movie_on,
+    .serie_vetrina {
       display: flex;
       .image {
         width: 70%;
@@ -359,50 +362,61 @@ main {
       }
     }
   }
-  .pop_films, .on_films,.on_air,.pop {
+  .pop_films,
+  .on_films,
+  .on_air,
+  .pop {
     .cards_container {
       display: flex;
       flex-wrap: wrap;
       .card_container {
         width: 20%;
         padding: 0.3rem;
-        a,.my_card,img{
+        a,
+        .my_card,
+        img {
           height: 100%;
         }
       }
     }
   }
-  .pop_films,.pop{
-    .card_container:nth-child(1),.card_container:nth-child(8),.card_container:nth-child(9),.card_container:nth-child(16),.card_container:nth-child(17){
-      width: 40%!important;
+  .pop_films,
+  .pop {
+    .card_container:nth-child(1),
+    .card_container:nth-child(8),
+    .card_container:nth-child(9),
+    .card_container:nth-child(16),
+    .card_container:nth-child(17) {
+      width: 40% !important;
     }
   }
-  .top_films,.top{
-    .cards_container{
+  .top_films,
+  .top {
+    .cards_container {
       display: flex;
       overflow-x: auto;
-      .card_container{
+      .card_container {
         position: relative;
         height: 10rem;
         margin: 1rem 1rem 1rem 0;
-        &:hover{
+        &:hover {
           transform: scale(105%);
-          transition: all .2s ease-in-out;
+          transition: all 0.2s ease-in-out;
         }
-        &:hover h3{
+        &:hover h3 {
           display: block;
         }
-        img{
+        img {
           height: 100%;
         }
-        h6{
+        h6 {
           position: absolute;
           top: 0;
           left: 0;
           background-color: $brand-color;
-          padding: .5rem;
+          padding: 0.5rem;
         }
-        h3{
+        h3 {
           display: none;
           position: absolute;
           font-size: 1rem;
@@ -415,101 +429,103 @@ main {
   }
 }
 //mostra movie
-#show_movie,#show_serie{
-  .first_movie_container,.first_serie_container{
+#show_movie,
+#show_serie {
+  .first_movie_container,
+  .first_serie_container {
     position: relative;
     top: 0;
     margin-top: -5.5rem;
     margin-bottom: 4rem;
-    img{
+    img {
       width: 100%;
       filter: brightness(0.8);
     }
-    .details{
+    .details {
       text-align: start;
       margin: 3rem auto;
-      h2{
-        font-size: 4rem ;
+      h2 {
+        font-size: 4rem;
       }
-      p{
+      p {
         font-size: 1.5rem;
       }
-      .subdetails{
+      .subdetails {
         color: $dark-green;
         display: flex;
         flex-direction: column;
-        ul{
+        ul {
           display: flex;
           list-style: none;
           padding: 0;
-          li{
-            margin-right: .5rem;
+          li {
+            margin-right: 0.5rem;
           }
         }
       }
     }
   }
-  .trailer{
-    h2{
+  .trailer {
+    h2 {
       font-size: 3rem;
       color: $brand-color;
       text-align: center;
       letter-spacing: 2rem;
-      padding: .5rem 0;
+      padding: 0.5rem 0;
       margin: 1.5rem 0;
     }
-    .trailer_yt{
+    .trailer_yt {
       width: 100%;
       height: 40rem;
       margin-bottom: 1rem;
     }
   }
-  .valutazione{
+  .valutazione {
     margin: 3rem auto;
-    .reviews{
+    .reviews {
       margin: 3rem 0;
-      ul{
+      ul {
         list-style: none;
         padding: 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        li{
+        li {
           width: 25%;
           padding: 0 0.5rem;
           max-height: 15rem;
           overflow-y: auto;
           overflow-x: hidden;
           margin: 2rem 0;
-          .autore{
+          .autore {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
-            img{
-              margin-right: .5rem;
+            img {
+              margin-right: 0.5rem;
               width: 3rem;
               height: 3rem;
               border-radius: 50%;
             }
-            .name_date{
-              h6{
-                font-size: .7rem;
+            .name_date {
+              h6 {
+                font-size: 0.7rem;
               }
             }
           }
         }
       }
     }
-    .rank{
+    .rank {
       margin: 1rem 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      h2{
+      h2 {
         text-align: center;
         margin-bottom: 2rem;
       }
-      h6{
+      h6 {
         font-size: 7rem;
         background-color: green;
         width: 7rem;
@@ -518,43 +534,43 @@ main {
         text-align: center;
         vertical-align: middle;
         line-height: 7rem;
-        &:hover{
+        &:hover {
           box-shadow: 0px 0px 20px 5px $brand-color;
-          transition: all .4s ease-out;
+          transition: all 0.4s ease-out;
           cursor: none;
         }
       }
     }
   }
-  .similar{
+  .similar {
     margin-bottom: 6rem;
     margin-top: 3rem;
-    h2{
+    h2 {
       text-align: center;
     }
-    .film_container{
+    .film_container {
       position: relative;
       display: flex;
-      a{
-        width: calc(100%/20);
+      a {
+        width: calc(100% / 20);
         height: 10rem;
         object-fit: cover;
-        &:hover{
+        &:hover {
           transform: scale(120%);
           border-radius: 5px;
           width: 8rem;
           transition: all ease-in-out;
         }
-        &:hover h3{
+        &:hover h3 {
           display: block;
           position: absolute;
-          font-size: .8rem;
+          font-size: 0.8rem;
           width: 10rem;
         }
-        h3{
+        h3 {
           display: none;
         }
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -562,64 +578,64 @@ main {
       }
     }
   }
-  .premiere{
-    iframe{
+  .premiere {
+    iframe {
       height: 35rem;
     }
   }
 }
-#show_serie{
-  .season{
+#show_serie {
+  .season {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    .season_container{
-      width: calc(100%/4);
-      padding: .3rem;
-      img{
+    .season_container {
+      width: calc(100% / 4);
+      padding: 0.3rem;
+      img {
         width: 100%;
       }
     }
   }
 }
-#favorites{
-  .principal_container{
+#favorites {
+  .principal_container {
     display: flex;
     flex-wrap: nowrap;
-    .left{
+    .left {
       border-right: 1px solid $brand-color;
     }
-    .right{
+    .right {
       border-left: 1px solid $brand-color;
     }
-    .movies{
+    .movies {
       padding: 1rem;
       width: 50%;
-      h2{
+      h2 {
         text-align: center;
         margin: 2rem 0;
       }
-        .movies_container{
-          .movie{
-            padding: .5rem;
+      .movies_container {
+        .movie {
+          padding: 0.5rem;
+          width: 100%;
+          img {
             width: 100%;
-            img{
-              width:100%;
-              border-radius: 10px;
-              &:hover{
-                box-shadow: 0px 0px 10px 0px $brand-color;
-              }
+            border-radius: 10px;
+            &:hover {
+              box-shadow: 0px 0px 10px 0px $brand-color;
             }
-            .details{
-              margin: 1rem 0;
+          }
+          .details {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            .action {
               display: flex;
-              justify-content: space-between;
-              .action{
-                display: flex;
-              }
             }
           }
         }
+      }
     }
   }
 }
@@ -636,7 +652,5 @@ footer {
   margin-top: 3rem;
   background-color: $brand-color;
   color: $dark-color;
-  padding: .5rem;
+  padding: 0.5rem;
 }
-
-

@@ -1,0 +1,18 @@
+stages:
+  - metrics
+  # - build
+  # - deploy
+
+sonar-metrics:
+  image:
+    name: sonarsource/sonar-scanner-cli:4.6
+    entrypoint: [ "" ]
+  stage: metrics
+  script:
+    - npm ci
+    - sonar-scanner -Dsonar.qualitygate.wait=true
+  environment:
+    name: develop
+  only:
+    - develop
+  tags: [ k8s ]
